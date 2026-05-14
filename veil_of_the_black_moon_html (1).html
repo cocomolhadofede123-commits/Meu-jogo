@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/Z8ywJlbjxIcTFY9ecoHX2ywGVkQwFqJu/77947c82-5ec8-4f85-a2f7-c99230fe220b/files/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Veil of the Black Moon</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#050508;--bg2:#0a0a12;--panel:#0d0d1a;--border:#1a1a2e;
+  --accent:#6b21a8;--accent2:#a855f7;--gold:#c9a227;
+  --red:#8b1a1a;--red2:#e53e3e;--green:#1a5c2a;--green2:#48bb78;
+  --text:#d4c5e2;--muted:#6b5a7a;--shop:#1a1000;--shopborder:#c9a227;
+}
+body{background:var(--bg);color:var(--text);font-family:'Crimson Text',serif;min-height:100vh;overflow-x:hidden;max-width:480px;margin:0 auto;position:relative;}
+.screen{display:none;min-height:100vh;flex-direction:column;}
+.screen.active{display:flex;}
+
+/* TITLE */
+#title-screen{background:radial-gradient(ellipse at center top,#1a0a2e 0%,#050508 60%);align-items:center;justify-content:center;text-align:center;padding:40px 20px;}
+.moon{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#1a0030 0%,#000 60%);border:2px solid #3d1a5e;box-shadow:0 0 60px #6b21a8,0 0 120px #3d0a6e;margin:0 auto 28px;animation:pulse 3s ease-in-out infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 60px #6b21a8,0 0 120px #3d0a6e;}50%{box-shadow:0 0 90px #9333ea,0 0 160px #5b21a8;}}
+.title-main{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,42px);font-weight:900;color:#fff;text-shadow:0 0 20px #a855f7;letter-spacing:3px;line-height:1.2;margin-bottom:6px;}
+.title-sub{font-family:'Cinzel',serif;font-size:11px;color:var(--muted);letter-spacing:6px;text-transform:uppercase;margin-bottom:10px;}
+.title-quote{font-style:italic;color:var(--muted);font-size:13px;max-width:280px;margin:0 auto 30px;line-height:1.7;}
+.save-info{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);margin-bottom:20px;padding:8px 16px;border:1px solid var(--border);background:var(--panel);}
+.btn{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;padding:12px 28px;border:1px solid var(--accent2);background:transparent;color:var(--accent2);cursor:pointer;text-transform:uppercase;transition:all .3s;display:block;width:210px;margin:7px auto;}
+.btn:hover,.btn:active{background:var(--accent);color:#fff;box-shadow:0 0 20px var(--accent);}
+.btn.primary{background:var(--accent);color:#fff;}
+.btn.gold{border-color:var(--gold);color:var(--gold);}
+.btn.gold:hover{background:var(--shop);color:var(--gold);box-shadow:0 0 15px var(--gold);}
+.btn.danger{border-color:var(--red2);color:var(--red2);}
+.btn.danger:hover{background:var(--red);color:#fff;}
+
+/* LANG */
+.lang-bar{position:fixed;top:0;right:0;z-index:300;display:flex;}
+.lang-btn{font-family:'Cinzel',serif;font-size:10px;padding:5px 10px;background:var(--bg2);border:1px solid var(--border);color:var(--muted);cursor:pointer;letter-spacing:1px;}
+.lang-btn.active{background:var(--accent);color:#fff;border-color:var(--accent2);}
+
+/* HUD */
+.hud{background:var(--bg2);border-bottom:1px solid var(--border);padding:9px 12px 9px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.bar-wrap{flex:1;min-width:0;}
+.bar-label{font-size:10px;color:var(--muted);margin-bottom:2px;display:flex;justify-content:space-between;}
+.bar{height:7px;background:#1a1a2e;border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;transition:width .5s ease;}
+.hp-fill{background:linear-gradient(90deg,var(--red),var(--red2));}
+.mp-fill{background:linear-gradient(90deg,#1e3a8a,#3b82f6);}
+.xp-fill{background:linear-gradient(90deg,#713f12,var(--gold));}
+.hud-right{display:flex;flex-direction:column;gap:3px;min-width:58px;}
+.hud-stat{font-size:10px;color:var(--gold);font-family:'Cinzel',serif;white-space:nowrap;}
+
+/* AREA */
+.area-banner{background:linear-gradient(180deg,#0d0020 0%,transparent 100%);text-align:center;padding:10px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.area-name{font-family:'Cinzel',serif;font-size:12px;color:var(--accent2);letter-spacing:3px;text-transform:uppercase;}
+.area-floor{font-size:10px;color:var(--muted);margin-top:2px;}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;overflow-x:auto;}
+.tab-btn{flex:1;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.5px;padding:8px 3px;background:transparent;border:none;color:var(--muted);cursor:pointer;text-transform:uppercase;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;min-width:0;}
+.tab-btn.active{color:var(--accent2);border-bottom-color:var(--accent2);}
+.tab-btn.shop-tab-btn{color:var(--gold) !important;}
+.tab-btn.shop-tab-btn.active{border-bottom-color:var(--gold);}
+.tab-btn.notify::after{content:'!';font-size:8px;color:var(--gold);margin-left:2px;}
+
+.tab-content{display:none;flex:1;overflow-y:auto;padding:10px;padding-bottom:50px;}
+.tab-content.active{display:block;}
+
+/* MONSTER */
+.monster-area{display:flex;justify-content:center;align-items:center;padding:12px 0 4px;min-height:145px;position:relative;}
+.monster-svg{filter:drop-shadow(0 0 12px rgba(139,0,0,.9));animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.monster-svg.boss-glow{filter:drop-shadow(0 0 20px rgba(200,100,0,.9)) drop-shadow(0 0 40px rgba(200,50,0,.5));}
+.monster-svg.hit{animation:hitFlash .3s ease forwards;}
+@keyframes hitFlash{0%,100%{filter:drop-shadow(0 0 12px rgba(139,0,0,.9));}50%{filter:brightness(4) drop-shadow(0 0 20px #fff);}}
+.dmg-float{position:absolute;font-family:'Cinzel',serif;font-weight:700;font-size:22px;color:#ef4444;text-shadow:0 0 10px #ef4444;pointer-events:none;animation:dmgUp .8s ease forwards;top:50%;left:50%;}
+@keyframes dmgUp{0%{transform:translate(-50%,-50%);opacity:1;}100%{transform:translate(-50%,-120%);opacity:0;}}
+.heal-float{color:var(--green2);text-shadow:0 0 10px var(--green2);}
+
+/* ENEMY CARD */
+.enemy-card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:11px;margin-bottom:10px;}
+.enemy-name{font-family:'Cinzel',serif;font-size:15px;color:#f59e0b;margin-bottom:2px;}
+.enemy-title-txt{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:7px;}
+.enemy-hp-bar{height:10px;background:#1a0a0a;border-radius:2px;overflow:hidden;margin-bottom:3px;}
+.enemy-hp-fill{height:100%;background:linear-gradient(90deg,#7f1d1d,#dc2626);border-radius:2px;transition:width .4s ease;}
+.enemy-hp-text{font-size:10px;color:var(--muted);text-align:right;}
+
+/* DICE */
+.dice-area{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:11px;margin-bottom:10px;text-align:center;}
+.dice-label{font-family:'Cinzel',serif;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:9px;text-transform:uppercase;}
+.dice-row{display:flex;justify-content:center;gap:9px;margin-bottom:9px;flex-wrap:wrap;}
+.die{width:52px;height:52px;background:#1a1a2e;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;user-select:none;position:relative;padding:6px;}
+.die.selected{border-color:var(--accent2);background:#1a0a2e;box-shadow:0 0 15px var(--accent);}
+.die.rolling{animation:rollDie .5s ease;}
+@keyframes rollDie{0%{transform:rotate(0) scale(1);}25%{transform:rotate(90deg) scale(1.2);}50%{transform:rotate(180deg) scale(.9);}75%{transform:rotate(270deg) scale(1.1);}100%{transform:rotate(360deg) scale(1);}}
+.pip{width:9px;height:9px;background:#a855f7;border-radius:50%;box-shadow:0 0 4px #6b21a8;}
+.die.selected .pip{background:#fff;box-shadow:0 0 6px #a855f7;}
+.die-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:100%;height:100%;gap:2px;}
+.die-cell{display:flex;align-items:center;justify-content:center;}
+.dice-result{font-family:'Cinzel',serif;color:var(--gold);font-size:12px;margin-bottom:7px;min-height:15px;}
+
+/* ACTIONS */
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;}
+.action-btn{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.5px;padding:11px 6px;border:1px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;text-transform:uppercase;transition:all .2s;border-radius:3px;line-height:1.4;}
+.action-btn:disabled{opacity:.3;cursor:not-allowed;}
+.action-btn.attack{border-color:#7f1d1d;}
+.action-btn.attack:not(:disabled):active{background:#1a0505;border-color:var(--red2);color:var(--red2);}
+.action-btn.heal{border-color:#14532d;}
+.action-btn.heal:not(:disabled):active{background:#051a0d;border-color:var(--green2);color:var(--green2);}
+.action-btn.special{border-color:#4c1d95;}
+.action-btn.special:not(:disabled):active{background:#0d0520;border-color:#a855f7;color:#a855f7;}
+.action-btn.defend:not(:disabled):active{background:#0a1020;border-color:#60a5fa;color:#60a5fa;}
+
+/* LOG */
+.battle-log{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:9px;overflow-y:auto;font-size:13px;line-height:1.7;scroll-behavior:smooth;}
+.log-line{margin-bottom:2px;}
+.log-line.system{color:var(--muted);font-style:italic;font-size:11px;}
+.log-line.damage{color:var(--red2);}
+.log-line.heal{color:var(--green2);}
+.log-line.boss{color:#f59e0b;font-weight:600;}
+.log-line.lore{color:var(--accent2);font-style:italic;}
+.log-line.victory{color:var(--gold);font-family:'Cinzel',serif;}
+.log-line.death{color:#ef4444;font-family:'Cinzel',serif;}
+.log-line.souls{color:var(--gold);}
+.log-line.skill{color:#86efac;}
+.log-line.shop{color:var(--gold);font-style:italic;}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+.stat-box{background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:7px 4px;text-align:center;}
+.stat-box .val{font-family:'Cinzel',serif;font-size:16px;color:var(--gold);display:block;}
+.stat-box .lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+
+/* SKILLS */
+.skill-points-banner{background:var(--panel);border:1px solid var(--accent);border-radius:4px;padding:9px;text-align:center;margin-bottom:10px;}
+.skill-points-banner .sp{font-family:'Cinzel',serif;font-size:20px;color:var(--accent2);}
+.skill-points-banner .spl{font-size:11px;color:var(--muted);}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.skill-card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:9px;}
+.skill-card .sk-name{font-family:'Cinzel',serif;font-size:11px;color:var(--text);margin-bottom:2px;}
+.skill-card .sk-desc{font-size:10px;color:var(--muted);margin-bottom:5px;line-height:1.4;}
+.skill-card .sk-level{font-size:10px;color:var(--gold);margin-bottom:5px;}
+.skill-up-btn{width:100%;font-family:'Cinzel',serif;font-size:10px;padding:6px;border:1px solid var(--accent);background:transparent;color:var(--accent2);cursor:pointer;border-radius:2px;letter-spacing:1px;}
+.skill-up-btn:disabled{opacity:.3;cursor:not-allowed;}
+.skill-up-btn:not(:disabled):active{background:var(--accent);color:#fff;}
+
+/* INVENTORY */
+.inv-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.inv-header h3{font-family:'Cinzel',serif;font-size:13px;color:var(--accent2);}
+.inv-gold{font-family:'Cinzel',serif;font-size:14px;color:var(--gold);}
+.inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.inv-slot{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:10px;cursor:pointer;transition:border-color .2s;}
+.inv-slot.equipped{border-color:var(--gold);}
+.inv-slot:active{border-color:var(--accent2);}
+.inv-slot .item-icon{font-size:26px;text-align:center;margin-bottom:5px;}
+.inv-slot .item-name{font-family:'Cinzel',serif;font-size:11px;color:var(--text);margin-bottom:3px;}
+.inv-slot .item-stats{font-size:10px;color:var(--green2);}
+.inv-slot .item-type{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.inv-slot .equip-badge{font-size:9px;color:var(--gold);font-family:'Cinzel',serif;}
+.inv-empty{color:var(--muted);font-style:italic;font-size:12px;text-align:center;padding:30px;grid-column:1/-1;}
+.equip-slots{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;}
+.equip-slot{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:8px;text-align:center;min-height:64px;}
+.equip-slot-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.equip-slot-item{font-size:18px;}
+.equip-slot-name{font-size:9px;color:var(--gold);font-family:'Cinzel',serif;margin-top:2px;line-height:1.2;}
+.equip-slot.filled{border-color:var(--gold);}
+
+/* SHOP */
+.shop-header{text-align:center;margin-bottom:12px;padding:12px;background:var(--shop);border:1px solid var(--shopborder);border-radius:4px;}
+.shop-header h2{font-family:'Cinzel',serif;font-size:15px;color:var(--gold);letter-spacing:2px;margin-bottom:4px;}
+.shop-header p{font-size:12px;color:var(--muted);font-style:italic;}
+.shop-merchant{font-size:48px;margin-bottom:4px;}
+.shop-gold-bar{font-family:'Cinzel',serif;color:var(--gold);font-size:13px;margin-bottom:12px;text-align:center;}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.shop-item{background:var(--panel);border:1px solid var(--shopborder);border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:4px;}
+.shop-item .si-icon{font-size:30px;text-align:center;}
+.shop-item .si-name{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);}
+.shop-item .si-stats{font-size:10px;color:var(--green2);}
+.shop-item .si-desc{font-size:10px;color:var(--muted);font-style:italic;line-height:1.3;}
+.shop-item .si-price{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-top:2px;}
+.buy-btn{width:100%;font-family:'Cinzel',serif;font-size:10px;padding:7px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;border-radius:2px;margin-top:4px;letter-spacing:1px;}
+.buy-btn:disabled{opacity:.3;cursor:not-allowed;}
+.buy-btn.bought{border-color:var(--green2);color:var(--green2);}
+.buy-btn:not(:disabled):not(.bought):active{background:var(--shop);color:var(--gold);}
+.shop-locked{text-align:center;padding:40px 20px;color:var(--muted);font-style:italic;}
+.shop-locked .lock-icon{font-size:40px;margin-bottom:10px;}
+
+/* MAP */
+.map-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--bg2);border-top:1px solid var(--border);overflow-x:auto;gap:3px;flex-shrink:0;}
+.map-node{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+.map-node.done{border-color:var(--gold);background:#1a1000;}
+.map-node.current{border-color:var(--accent2);background:#1a0a2e;box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite;}
+.map-node.locked{opacity:.25;}
+.map-line{flex:1;height:1px;background:var(--border);min-width:6px;}
+
+/* POPUP */
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;z-index:200;padding:16px;opacity:0;pointer-events:none;transition:opacity .35s;}
+.popup.show{opacity:1;pointer-events:all;}
+.popup-box{background:var(--panel);border:1px solid var(--accent);max-width:360px;width:100%;padding:20px;text-align:center;box-shadow:0 0 50px var(--accent);}
+.popup-box.shop-popup{border-color:var(--gold);box-shadow:0 0 50px rgba(201,162,39,.4);}
+.popup-box h3{font-family:'Cinzel',serif;color:var(--accent2);margin-bottom:10px;font-size:15px;letter-spacing:2px;}
+.popup-box p{font-style:italic;line-height:1.8;color:var(--text);margin-bottom:16px;font-size:13px;white-space:pre-line;}
+
+/* DEATH / VICTORY */
+#death-screen{background:#000;align-items:center;justify-content:center;text-align:center;padding:40px 20px;}
+.death-title{font-family:'Cinzel',serif;font-size:32px;color:var(--red2);text-shadow:0 0 30px var(--red2);margin-bottom:8px;letter-spacing:4px;}
+#victory-screen{background:radial-gradient(ellipse at center,#0a0020 0%,#000 70%);align-items:center;justify-content:center;text-align:center;padding:40px 20px;}
+.victory-title{font-family:'Cinzel',serif;font-size:26px;color:var(--gold);text-shadow:0 0 30px var(--gold);margin-bottom:10px;letter-spacing:3px;}
+
+/* SHAKE */
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+.shake{animation:shake .35s ease;}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('pt')">PT</button>
+</div>
+
+<!-- ========== TITLE ========== -->
+<div id="title-screen" class="screen active">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;">
+    <div class="moon"></div>
+    <div class="title-main">VEIL OF THE<br>BLACK MOON</div>
+    <div class="title-sub">A Dark RPG</div>
+    <div class="title-quote">"The sky has been dark for centuries.<br>You are the reason why."</div>
+    <div class="save-info" id="save-info" style="display:none"></div>
+    <button class="btn primary" onclick="startGame(false)" id="btn-begin">BEGIN</button>
+    <button class="btn gold" onclick="startGame(true)" id="btn-continue" style="display:none">CONTINUE</button>
+    <button class="btn" onclick="showLoreTitle()">LORE</button>
+    <button class="btn danger" onclick="deleteSave()" id="btn-delete" style="display:none;margin-top:20px;">DELETE SAVE</button>
+  </div>
+</div>
+
+<!-- ========== GAME ========== -->
+<div id="game-screen" class="screen">
+  <!-- HUD -->
+  <div class="hud">
+    <div style="display:flex;flex-direction:column;gap:3px;flex:1">
+      <div class="bar-wrap">
+        <div class="bar-label"><span>HP</span><span id="hp-text">100/100</span></div>
+        <div class="bar"><div class="bar-fill hp-fill" id="hp-bar" style="width:100%"></div></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>MP</span><span id="mp-text">50/50</span></div>
+        <div class="bar"><div class="bar-fill mp-fill" id="mp-bar" style="width:100%"></div></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>XP</span><span id="xp-text">0/20</span></div>
+        <div class="bar"><div class="bar-fill xp-fill" id="xp-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="hud-right">
+      <div class="hud-stat">⚔️<span id="hud-atk">8</span></div>
+      <div class="hud-stat">🛡️<span id="hud-def">3</span></div>
+      <div class="hud-stat" style="color:var(--accent2)">★<span id="hud-lvl">1</span></div>
+      <div class="hud-stat" style="color:var(--gold)">💰<span id="hud-gold">0</span></div>
+    </div>
+  </div>
+
+  <!-- AREA BANNER -->
+  <div class="area-banner">
+    <div class="area-name" id="area-name"></div>
+    <div class="area-floor" id="area-floor"></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs" id="main-tabs">
+    <button class="tab-btn active" onclick="switchTab('battle',this)">⚔️ BATTLE</button>
+    <button class="tab-btn" onclick="switchTab('skills',this)">✨ SKILLS</button>
+    <button class="tab-btn" onclick="switchTab('inventory',this)">🎒 ITEMS</button>
+    <button class="tab-btn shop-tab-btn" onclick="switchTab('shop',this)" id="tab-shop-btn">🛒 SHOP</button>
+    <button class="tab-btn" onclick="switchTab('log',this)">📜 LOG</button>
+    <button class="tab-btn" onclick="switchTab('lore',this)">📖 LORE</button>
+  </div>
+
+  <!-- TAB BATTLE -->
+  <div class="tab-content active" id="tab-battle">
+    <div class="monster-area" id="monster-area">
+      <div id="monster-svg-wrap"></div>
+    </div>
+    <div class="enemy-card">
+      <div class="enemy-name" id="enemy-name">-</div>
+      <div class="enemy-title-txt" id="enemy-title-txt">-</div>
+      <div class="enemy-hp-bar"><div class="enemy-hp-fill" id="enemy-hp-bar" style="width:100%"></div></div>
+      <div class="enemy-hp-text" id="enemy-hp-text">- / -</div>
+    </div>
+    <div class="dice-area" id="dice-area">
+      <div class="dice-label">ROLL THE DICE — CHOOSE YOUR FATE</div>
+      <div class="dice-row" id="dice-row"></div>
+      <div class="dice-result" id="dice-result"></div>
+      <button class="btn primary" id="roll-btn" onclick="rollDice()" style="font-size:12px;padding:9px 22px;width:auto;">🎲 ROLL</button>
+    </div>
+    <div class="actions">
+      <button class="action-btn attack" id="btn-attack" onclick="doAction('attack')" disabled>⚔️ STRIKE<br><small>Roll + STR</small></button>
+      <button class="action-btn defend" id="btn-defend" onclick="doAction('defend')" disabled>🛡️ ENDURE<br><small>Reduce dmg</small></button>
+      <button class="action-btn special" id="btn-special" onclick="doAction('special')" disabled>🌑 ECLIPSE<br><small>-10 MP</small></button>
+      <button class="action-btn heal" id="btn-heal" onclick="doAction('heal')" disabled>🩸 VEIL<br><small>Restore HP</small></button>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box"><span class="val" id="stat-souls">0</span><span class="lbl">Souls</span></div>
+      <div class="stat-box"><span class="val" id="stat-gold2">0</span><span class="lbl">Gold</span></div>
+      <div class="stat-box"><span class="val" id="stat-kills">0</span><span class="lbl">Kills</span></div>
+      <div class="stat-box"><span class="val" id="stat-area">1/8</span><span class="lbl">Area</span></div>
+    </div>
+    <div class="battle-log" id="battle-log" style="max-height:130px;"></div>
+  </div>
+
+  <!-- TAB SKILLS -->
+  <div class="tab-content" id="tab-skills">
+    <div class="skill-points-banner">
+      <div class="sp" id="sp-display">0</div>
+      <div class="spl">Skill Points Available</div>
+    </div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </div>
+
+  <!-- TAB INVENTORY -->
+  <div class="tab-content" id="tab-inventory">
+    <div class="inv-header">
+      <h3>EQUIPPED</h3>
+      <div class="inv-gold">💰 <span id="inv-gold-display">0</span> Gold</div>
+    </div>
+    <div class="equip-slots" id="equip-slots"></div>
+    <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--accent2);margin-bottom:8px;letter-spacing:1px;">INVENTORY</div>
+    <div class="inv-grid" id="inv-grid"></div>
+  </div>
+
+  <!-- TAB SHOP -->
+  <div class="tab-content" id="tab-shop">
+    <div id="shop-content"></div>
+  </div>
+
+  <!-- TAB LORE -->
+  <div class="tab-content" id="tab-lore">
+    <div id="lore-tab-content"></div>
+  </div>
+
+  <!-- TAB LOG -->
+  <div class="tab-content" id="tab-log">
+    <div class="battle-log" id="battle-log-full" style="max-height:none;min-height:400px;border:none;background:transparent;"></div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-row" id="map-row"></div>
+</div>
+
+<!-- ========== DEATH ========== -->
+<div id="death-screen" class="screen">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;">
+    <div style="font-size:64px;margin-bottom:18px;">💀</div>
+    <div class="death-title">YOU DIED</div>
+    <div style="color:var(--muted);font-size:13px;margin:7px 0 5px;font-style:italic;" id="death-msg"></div>
+    <div style="color:var(--muted);font-size:12px;margin-bottom:26px;" id="death-souls"></div>
+    <button class="btn primary" onclick="restartFromBonfire()">🔥 BONFIRE — RESUME</button>
+    <button class="btn" onclick="resetGame()">Start Over</button>
+  </div>
+</div>
+
+<!-- ========== VICTORY ========== -->
+<div id="victory-screen" class="screen">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;">
+    <div style="font-size:64px;margin-bottom:18px;animation:float 3s ease-in-out infinite">☀️</div>
+    <div class="victory-title">THE SUN RISES</div>
+    <div style="color:var(--text);font-style:italic;max-width:320px;margin:0 auto 16px;line-height:1.8;font-size:13px;" id="victory-text"></div>
+    <div style="color:var(--muted);font-size:11px;margin-bottom:26px;" id="victory-stats"></div>
+    <button class="btn primary" onclick="resetGame()">Play Again</button>
+  </div>
+</div>
+
+<!-- POPUP LORE -->
+<div class="popup" id="lore-popup">
+  <div class="popup-box">
+    <h3 id="popup-title">-</h3>
+    <p id="popup-text"></p>
+    <button class="btn" onclick="closePopup('lore-popup')">CLOSE</button>
+  </div>
+</div>
+
+<!-- POPUP LEVELUP -->
+<div class="popup" id="levelup-popup">
+  <div class="popup-box">
+    <h3 id="lu-title">LEVEL UP!</h3>
+    <p id="lu-text"></p>
+    <button class="btn primary" onclick="closePopup('levelup-popup')">CONTINUE</button>
+  </div>
+</div>
+
+<!-- POPUP SHOP UNLOCK -->
+<div class="popup" id="shop-unlock-popup">
+  <div class="popup-box shop-popup">
+    <div style="font-size:48px;margin-bottom:8px;" id="su-merchant">🧙</div>
+    <h3 id="su-title" style="color:var(--gold);">MERCHANT APPEARS</h3>
+    <p id="su-text"></p>
+    <button class="btn gold" onclick="closePopup('shop-unlock-popup');switchTabById('shop')">VISIT SHOP</button>
+    <button class="btn" onclick="closePopup('shop-unlock-popup')" style="margin-top:6px;">Continue</button>
+  </div>
+</div>
+
+<!-- POPUP ITEM USE -->
+<div class="popup" id="item-popup">
+  <div class="popup-box">
+    <div style="font-size:40px;margin-bottom:8px;" id="ip-icon"></div>
+    <h3 id="ip-name">-</h3>
+    <p id="ip-desc"></p>
+    <div style="color:var(--green2);font-size:12px;margin-bottom:12px;" id="ip-stats"></div>
+    <button class="btn primary" id="ip-equip-btn" onclick="equipSelectedItem()">EQUIP</button>
+    <button class="btn" onclick="closePopup('item-popup')" style="margin-top:6px;">Cancel</button>
+  </div>
+</div>
+
+<script>
+// ===================================================
+// TRANSLATIONS
+// ===================================================
+const T={
+  en:{
+    save_found:"Save found — Level {lv}, Area {a}/8",
+    no_save:"No save data found",
+    victory_text:"Nytharoth falls. The Black Moon shatters.\nThe Bearer of the Veil stands alone in silence.\n\nFor the first time in centuries — light.\n\nBut humanity is already gone.",
+    died_msg:"The {e} claimed your soul.",
+    souls_lost:"Gold: {g} | Kills: {k} (Lost 50% gold at bonfire)",
+    log_awaken:"The Bearer of the Veil awakens near a ruined cathedral.",
+    log_darkness:"No memories. Only darkness above.",
+    log_elyra:'A girl named Elyra stands before you.',
+    log_elyra2:'"There are seven Hearts to destroy. Will you walk with me?"',
+    log_spawn:"A {e} emerges from the darkness.",
+    log_boss_near:"⚠️ A great darkness approaches...",
+    log_roll:"Rolled: {d}  (Total: {t})",
+    log_strike:"⚔️ You strike for {dmg} damage!",
+    log_defend:"🛡️ Guard raised. (Dice: {d})",
+    log_eclipse:"🌑 Eclipse Surge! {dmg} shadow damage! (MP -10)",
+    log_veil:"🩸 Veil heals +{hp} HP",
+    log_no_mp:"❌ Not enough Moon Power.",
+    log_enemy_atk:"💢 {e} attacks for {dmg} damage!{b}",
+    log_blocked:" (Blocked!)",
+    log_dead:"✔ {e} dissolves into shadow.",
+    log_gold:"+{g} gold",
+    log_souls_earn:"+{s} souls",
+    log_boss_dead:"💀 {e} has fallen.",
+    log_heart:"💀 Heart of the Eclipse — DESTROYED",
+    log_levelup:"⬆️ Level up! Now {lv}. ATK+{a} DEF+{d} HP+{h}",
+    log_you_died:"☠️ YOU HAVE FALLEN",
+    log_bonfire:"🔥 Awakened at bonfire. Half gold lost.",
+    log_next:"You enter {area}...",
+    log_elyra_wait:"Elyra stands before you. Silent. Waiting.",
+    log_elyra_speech:'"You know what must be done, Bearer."',
+    log_buy:"🛒 Purchased: {item}",
+    log_equip:"🗡️ Equipped: {item}",
+    lu_title:"LEVEL UP!",
+    lu_text:"Level {lv} reached!\n\n+{h} Max HP  ·  +{m} Max MP\n+{a} Attack  ·  +{d} Defense\n+1 Skill Point",
+    sp_lbl:"Skill Points Available",
+    sk_str_n:"STRENGTH",sk_str_d:"Attack +3 per upgrade",
+    sk_end_n:"ENDURANCE",sk_end_d:"Defense +2 per upgrade",
+    sk_vit_n:"VITALITY",sk_vit_d:"Max HP +20 per upgrade",
+    sk_moon_n:"MOON AFFINITY",sk_moon_d:"Max MP +10 per upgrade",
+    sk_ecl_n:"ECLIPSE MASTERY",sk_ecl_d:"Eclipse damage ×1.5",
+    sk_veil_n:"VEIL MASTERY",sk_veil_d:"Veil heals ×1.5",
+    sk_dice_n:"DICE BLESSING",sk_dice_d:"Roll 4 dice instead of 3",
+    sk_soul_n:"SOUL HARVEST",sk_soul_d:"Gain +25% more gold",
+    upg:"Upgrade",maxed:"MAXED",cost:"(1 SP)",
+    equip_weapon:"Weapon",equip_armor:"Armor",equip_relic:"Relic",equip_empty:"Empty",
+    inv_empty:"No items in inventory",
+    buy_btn:"Buy",bought_btn:"Bought",
+    shop_locked_title:"No Merchant",
+    shop_locked_msg:"Defeat the next Boss to summon a merchant.",
+    memory:"Memory Fragment",
+    depth:"Depth",floor:"Floor",boss_lbl:"BOSS",
+  },
+  pt:{
+    save_found:"Save encontrado — Nível {lv}, Área {a}/8",
+    no_save:"Nenhum save encontrado",
+    victory_text:"Nytharoth cai. A Lua Negra se despedaça.\nO Portador do Véu fica sozinho em silêncio.\n\nPela primeira vez em séculos — luz.\n\nMas a humanidade já se foi.",
+    died_msg:"O {e} consumiu sua alma.",
+    souls_lost:"Ouro: {g} | Mortos: {k} (Perdeu 50% do ouro)",
+    log_awaken:"O Portador do Véu acorda perto de uma catedral em ruínas.",
+    log_darkness:"Sem memórias. Apenas escuridão acima.",
+    log_elyra:"Uma garota chamada Elyra está diante de você.",
+    log_elyra2:'"Há sete Corações para destruir. Você caminhará comigo?"',
+    log_spawn:"Um(a) {e} emerge das trevas.",
+    log_boss_near:"⚠️ Uma grande escuridão se aproxima...",
+    log_roll:"Rolado: {d}  (Total: {t})",
+    log_strike:"⚔️ Você ataca causando {dmg} de dano!",
+    log_defend:"🛡️ Guarda elevada. (Dados: {d})",
+    log_eclipse:"🌑 Surto do Eclipse! {dmg} de dano sombrio! (PM -10)",
+    log_veil:"🩸 Véu cura +{hp} VD",
+    log_no_mp:"❌ Poder da Lua insuficiente.",
+    log_enemy_atk:"💢 {e} ataca causando {dmg} de dano!{b}",
+    log_blocked:" (Bloqueado!)",
+    log_dead:"✔ {e} se dissolve nas sombras.",
+    log_gold:"+{g} ouro",
+    log_souls_earn:"+{s} almas",
+    log_boss_dead:"💀 {e} caiu.",
+    log_heart:"💀 Coração do Eclipse — DESTRUÍDO",
+    log_levelup:"⬆️ Nível {lv}! ATA+{a} DEF+{d} VD+{h}",
+    log_you_died:"☠️ VOCÊ CAIU",
+    log_bonfire:"🔥 Acorda na fogueira. Metade do ouro perdida.",
+    log_next:"Você entra em {area}...",
+    log_elyra_wait:"Elyra está diante de você. Silenciosa. Esperando.",
+    log_elyra_speech:'"Você sabe o que precisa ser feito, Portador."',
+    log_buy:"🛒 Comprado: {item}",
+    log_equip:"🗡️ Equipado: {item}",
+    lu_title:"SUBIU DE NÍVEL!",
+    lu_text:"Nível {lv} alcançado!\n\n+{h} VD Máx  ·  +{m} PM Máx\n+{a} Ataque  ·  +{d} Defesa\n+1 Ponto de Habilidade",
+    sp_lbl:"Pontos de Habilidade Disponíveis",
+    sk_str_n:"FORÇA",sk_str_d:"Ataque +3 por melhoria",
+    sk_end_n:"RESISTÊNCIA",sk_end_d:"Defesa +2 por melhoria",
+    sk_vit_n:"VITALIDADE",sk_vit_d:"VD Máx +20 por melhoria",
+    sk_moon_n:"AFINIDADE LUNAR",sk_moon_d:"PM Máx +10 por melhoria",
+    sk_ecl_n:"DOMÍNIO ECLIPSE",sk_ecl_d:"Eclipse causa ×1.5 de dano",
+    sk_veil_n:"DOMÍNIO VÉU",sk_veil_d:"Véu cura ×1.5",
+    sk_dice_n:"BÊNÇÃO DOS DADOS",sk_dice_d:"Role 4 dados em vez de 3",
+    sk_soul_n:"COLHEITA DE ALMAS",sk_soul_d:"Ganha +25% mais ouro",
+    upg:"Melhorar",maxed:"MÁXIMO",cost:"(1 PE)",
+    equip_weapon:"Arma",equip_armor:"Armadura",equip_relic:"Relíquia",equip_empty:"Vazio",
+    inv_empty:"Sem itens no inventário",
+    buy_btn:"Comprar",bought_btn:"Comprado",
+    shop_locked_title:"Sem Mercador",
+    shop_locked_msg:"Derrote o próximo Chefe para invocar um mercador.",
+    memory:"Fragmento de Memória",
+    depth:"Prof.",floor:"Andar",boss_lbl:"CHEFE",
+  }
+};
+let LANG='en';
+function t(k,v={}){let s=(T[LANG][k]||T.en[k]||k);for(const[a,b] of Object.entries(v))s=s.replaceAll('{'+a+'}',b);return s;}
+function setLang(l){LANG=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));refreshLangUI();}
+function refreshLangUI(){
+  document.querySelectorAll('.skill-card .spl').forEach(e=>e.textContent=t('sp_lbl'));
+  renderSkills();renderShop();renderInventory();updateHUD();
+  // update static labels
+  document.querySelector('#tab-skills .spl') && (document.querySelector('#tab-skills .spl').textContent=t('sp_lbl'));
+}
+
+// ===================================================
+// SPRITES
+// ===================================================
+const SPR={
+  wraith:`<svg width="120" height="140" viewBox="0 0 120 140"><ellipse cx="60" cy="110" rx="40" ry="20" fill="#1a0030" opacity=".4"/><path d="M30 60 Q20 90 25 120 Q40 130 60 125 Q80 130 95 120 Q100 90 90 60 Q75 40 60 38 Q45 40 30 60Z" fill="#0d0020"/><path d="M30 60 Q20 90 25 120 Q30 125 35 118 Q35 100 40 95 Q45 100 45 120 Q50 128 55 125 Q55 100 60 95 Q65 100 65 125 Q70 128 75 120 Q75 100 80 95 Q85 100 85 118 Q90 125 95 120 Q100 90 90 60 Q75 40 60 38 Q45 40 30 60Z" fill="#150025"/><ellipse cx="60" cy="55" rx="22" ry="20" fill="#1a0030"/><ellipse cx="51" cy="52" rx="7" ry="8" fill="#0a0015"/><ellipse cx="69" cy="52" rx="7" ry="8" fill="#0a0015"/><ellipse cx="51" cy="51" rx="4" ry="5" fill="#a855f7" opacity=".9"/><ellipse cx="69" cy="51" rx="4" ry="5" fill="#a855f7" opacity=".9"/><ellipse cx="51" cy="51" rx="2" ry="2.5" fill="#fff" opacity=".7"/><ellipse cx="69" cy="51" rx="2" ry="2.5" fill="#fff" opacity=".7"/><path d="M52 63 Q60 67 68 63" stroke="#6b21a8" stroke-width="1.5" fill="none"/><path d="M38 48 Q32 38 36 30" stroke="#6b21a8" stroke-width="2" fill="none" opacity=".6"/><path d="M82 48 Q88 38 84 30" stroke="#6b21a8" stroke-width="2" fill="none" opacity=".6"/><circle cx="36" cy="29" r="3" fill="#a855f7" opacity=".5"/><circle cx="84" cy="29" r="3" fill="#a855f7" opacity=".5"/></svg>`,
+  crow:`<svg width="120" height="130" viewBox="0 0 120 130"><ellipse cx="60" cy="108" rx="35" ry="14" fill="#000" opacity=".4"/><ellipse cx="60" cy="72" rx="18" ry="28" fill="#0a0a0a"/><ellipse cx="60" cy="48" rx="16" ry="14" fill="#111"/><circle cx="52" cy="45" r="5" fill="#050505"/><circle cx="68" cy="45" r="5" fill="#050505"/><circle cx="52" cy="44" r="2.5" fill="#dc2626"/><circle cx="68" cy="44" r="2.5" fill="#dc2626"/><polygon points="60,54 55,59 65,59" fill="#1a1a1a"/><path d="M20 65 Q10 50 15 35 Q30 55 42 65Z" fill="#0d0d0d"/><path d="M100 65 Q110 50 105 35 Q90 55 78 65Z" fill="#0d0d0d"/><line x1="52" y1="100" x2="46" y2="118" stroke="#1a1a1a" stroke-width="2"/><line x1="68" y1="100" x2="74" y2="118" stroke="#1a1a1a" stroke-width="2"/></svg>`,
+  spider:`<svg width="130" height="110" viewBox="0 0 130 110"><ellipse cx="65" cy="90" rx="38" ry="12" fill="#000" opacity=".4"/><ellipse cx="65" cy="65" rx="22" ry="18" fill="#1a0510"/><ellipse cx="65" cy="45" rx="16" ry="14" fill="#200810"/><circle cx="57" cy="41" r="4" fill="#0a0005"/><circle cx="73" cy="41" r="4" fill="#0a0005"/><circle cx="57" cy="40" r="2" fill="#e53e3e"/><circle cx="73" cy="40" r="2" fill="#e53e3e"/><circle cx="50" cy="44" r="3" fill="#0a0005"/><circle cx="50" cy="43.5" r="1.5" fill="#e53e3e"/><circle cx="80" cy="44" r="3" fill="#0a0005"/><circle cx="80" cy="43.5" r="1.5" fill="#e53e3e"/><path d="M43 60 Q25 50 10 35" stroke="#300515" stroke-width="3" fill="none"/><path d="M43 65 Q22 65 5 60" stroke="#300515" stroke-width="3" fill="none"/><path d="M43 70 Q25 80 12 88" stroke="#300515" stroke-width="3" fill="none"/><path d="M87 60 Q105 50 120 35" stroke="#300515" stroke-width="3" fill="none"/><path d="M87 65 Q108 65 125 60" stroke="#300515" stroke-width="3" fill="none"/><path d="M87 70 Q105 80 118 88" stroke="#300515" stroke-width="3" fill="none"/></svg>`,
+  knight:`<svg width="110" height="150" viewBox="0 0 110 150"><ellipse cx="55" cy="132" rx="30" ry="10" fill="#000" opacity=".4"/><rect x="35" y="85" width="40" height="45" rx="3" fill="#111"/><rect x="28" y="88" width="16" height="38" rx="3" fill="#0d0d0d"/><rect x="66" y="88" width="16" height="38" rx="3" fill="#0d0d0d"/><rect x="40" y="130" width="14" height="12" rx="2" fill="#0d0d0d"/><rect x="56" y="130" width="14" height="12" rx="2" fill="#0d0d0d"/><ellipse cx="55" cy="72" rx="18" ry="20" fill="#151515"/><rect x="37" y="60" width="36" height="24" rx="4" fill="#1a1a1a"/><rect x="40" y="64" width="12" height="8" rx="1" fill="#dc2626" opacity=".4"/><rect x="58" y="64" width="12" height="8" rx="1" fill="#dc2626" opacity=".4"/><rect x="8" y="85" width="6" height="50" rx="2" fill="#222"/><polygon points="8,85 14,85 11,70" fill="#333"/></svg>`,
+  phantom:`<svg width="115" height="145" viewBox="0 0 115 145"><ellipse cx="57" cy="120" rx="35" ry="15" fill="#000020" opacity=".5"/><path d="M22 75 Q15 105 20 130 Q37 140 57 135 Q77 140 95 130 Q100 105 93 75 Q78 52 57 50 Q36 52 22 75Z" fill="#05051a"/><ellipse cx="57" cy="62" rx="20" ry="18" fill="#080820"/><ellipse cx="48" cy="59" rx="6" ry="7" fill="#030315"/><ellipse cx="66" cy="59" rx="6" ry="7" fill="#030315"/><ellipse cx="48" cy="58" rx="3.5" ry="4" fill="#60a5fa" opacity=".8"/><ellipse cx="66" cy="58" rx="3.5" ry="4" fill="#60a5fa" opacity=".8"/><path d="M20 130 L15 142 M35 135 L33 142 M79 135 L81 142 M94 130 L99 142" stroke="#05051a" stroke-width="4" stroke-linecap="round"/></svg>`,
+  acolyte:`<svg width="100" height="140" viewBox="0 0 100 140"><ellipse cx="50" cy="125" rx="28" ry="9" fill="#000" opacity=".4"/><rect x="30" y="78" width="40" height="44" rx="4" fill="#100510"/><rect x="22" y="82" width="16" height="35" rx="3" fill="#0d030d"/><rect x="62" y="82" width="16" height="35" rx="3" fill="#0d030d"/><ellipse cx="50" cy="58" rx="17" ry="19" fill="#150a15"/><ellipse cx="42" cy="55" rx="6" ry="7" fill="#080508"/><ellipse cx="58" cy="55" rx="6" ry="7" fill="#080508"/><ellipse cx="42" cy="54" rx="3.5" ry="4" fill="#f59e0b" opacity=".7"/><ellipse cx="58" cy="54" rx="3.5" ry="4" fill="#f59e0b" opacity=".7"/><path d="M33 44 Q36 32 50 30 Q64 32 67 44" fill="#150a15" stroke="#2d1520" stroke-width="1"/><circle cx="50" cy="30" r="6" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity=".5"/></svg>`,
+  boss_drowned:`<svg width="140" height="160" viewBox="0 0 140 160"><ellipse cx="70" cy="145" rx="50" ry="12" fill="#001a2e" opacity=".5"/><rect x="25" y="80" width="90" height="60" rx="4" fill="#051520"/><rect x="15" y="85" width="25" height="50" rx="4" fill="#071825"/><rect x="100" y="85" width="25" height="50" rx="4" fill="#071825"/><rect x="40" y="140" width="25" height="15" rx="3" fill="#060f1a"/><rect x="75" y="140" width="25" height="15" rx="3" fill="#060f1a"/><ellipse cx="70" cy="62" rx="30" ry="26" fill="#0a1e2e"/><path d="M40 45 Q45 28 70 25 Q95 28 100 45" stroke="#0e2a3a" stroke-width="2" fill="#0a1e2e"/><polygon points="50,30 55,18 60,30" fill="#1a3a4a"/><polygon points="65,26 70,12 75,26" fill="#1a3a4a"/><polygon points="80,30 85,18 90,30" fill="#1a3a4a"/><ellipse cx="58" cy="60" rx="8" ry="9" fill="#030f1a"/><ellipse cx="82" cy="60" rx="8" ry="9" fill="#030f1a"/><ellipse cx="58" cy="59" rx="5" ry="6" fill="#0ea5e9" opacity=".7"/><ellipse cx="82" cy="59" rx="5" ry="6" fill="#0ea5e9" opacity=".7"/><path d="M55 72 Q70 78 85 72" stroke="#0e2a3a" stroke-width="2" fill="none"/><rect x="3" y="88" width="5" height="55" rx="2" fill="#0a2030"/><polygon points="3,88 8,88 5.5,72" fill="#0f304a"/></svg>`,
+  boss_mother:`<svg width="140" height="150" viewBox="0 0 140 150"><ellipse cx="70" cy="135" rx="48" ry="12" fill="#000" opacity=".4"/><ellipse cx="70" cy="90" rx="38" ry="40" fill="#0a0510"/><ellipse cx="70" cy="58" rx="26" ry="24" fill="#120a18"/><ellipse cx="57" cy="54" rx="9" ry="10" fill="#080510"/><ellipse cx="83" cy="54" rx="9" ry="10" fill="#080510"/><ellipse cx="57" cy="53" rx="6" ry="7" fill="#dc2626" opacity=".5"/><ellipse cx="83" cy="53" rx="6" ry="7" fill="#dc2626" opacity=".5"/><path d="M44 53 Q25 42 18 25" stroke="#1a0520" stroke-width="3" fill="none"/><path d="M96 53 Q115 42 122 25" stroke="#1a0520" stroke-width="3" fill="none"/><path d="M50 90 Q30 100 20 120" stroke="#1a0520" stroke-width="3" fill="none"/><path d="M90 90 Q110 100 120 120" stroke="#1a0520" stroke-width="3" fill="none"/><ellipse cx="44" cy="70" rx="8" ry="20" fill="#0d0515" transform="rotate(-20 44 70)"/><ellipse cx="96" cy="70" rx="8" ry="20" fill="#0d0515" transform="rotate(20 96 70)"/></svg>`,
+  boss_nytharoth:`<svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="60" fill="#000" opacity=".4"/><circle cx="80" cy="80" r="55" fill="none" stroke="#1a0030" stroke-width="2" opacity=".5"/><circle cx="80" cy="80" r="48" fill="#030008"/><circle cx="80" cy="80" r="44" fill="none" stroke="#3d0a6e" stroke-width="1.5"/><circle cx="80" cy="80" r="38" fill="#06000f"/><ellipse cx="63" cy="75" rx="12" ry="14" fill="#0a0018"/><ellipse cx="97" cy="75" rx="12" ry="14" fill="#0a0018"/><ellipse cx="63" cy="74" rx="8" ry="10" fill="#6b21a8" opacity=".6"/><ellipse cx="97" cy="74" rx="8" ry="10" fill="#6b21a8" opacity=".6"/><ellipse cx="63" cy="74" rx="4" ry="5" fill="#a855f7" opacity=".8"/><ellipse cx="97" cy="74" rx="4" ry="5" fill="#a855f7" opacity=".8"/><ellipse cx="63" cy="74" rx="2" ry="2.5" fill="#fff" opacity=".7"/><ellipse cx="97" cy="74" rx="2" ry="2.5" fill="#fff" opacity=".7"/><path d="M60 92 Q80 102 100 92" stroke="#3d0a6e" stroke-width="2" fill="none"/><path d="M32 55 Q15 35 25 15" stroke="#3d0a6e" stroke-width="3" fill="none" opacity=".7"/><path d="M128 55 Q145 35 135 15" stroke="#3d0a6e" stroke-width="3" fill="none" opacity=".7"/><path d="M80 32 Q80 10 80 5" stroke="#3d0a6e" stroke-width="3" fill="none" opacity=".7"/><circle cx="25" cy="14" r="5" fill="#6b21a8" opacity=".6"/><circle cx="135" cy="14" r="5" fill="#6b21a8" opacity=".6"/><circle cx="80" cy="5" r="5" fill="#6b21a8" opacity=".6"/><circle cx="80" cy="80" r="55" fill="none" stroke="#6b21a8" stroke-width="1" opacity=".2" stroke-dasharray="8 4"/></svg>`,
+  boss_elyra:`<svg width="120" height="155" viewBox="0 0 120 155"><ellipse cx="60" cy="138" rx="32" ry="10" fill="#000" opacity=".4"/><rect x="38" y="88" width="44" height="48" rx="4" fill="#0d0d1a"/><rect x="30" y="92" width="18" height="38" rx="4" fill="#0a0a15"/><rect x="72" y="92" width="18" height="38" rx="4" fill="#0a0a15"/><ellipse cx="60" cy="68" rx="18" ry="20" fill="#0d0d20"/><path d="M42 55 Q43 40 60 38 Q77 40 78 55" fill="#0d0d20" stroke="#1a1a30" stroke-width="1"/><path d="M42 55 Q35 45 38 35 Q45 48 48 52Z" fill="#0a0a1a"/><path d="M78 55 Q85 45 82 35 Q75 48 72 52Z" fill="#0a0a1a"/><ellipse cx="52" cy="65" rx="6" ry="7" fill="#050510"/><ellipse cx="68" cy="65" rx="6" ry="7" fill="#050510"/><ellipse cx="52" cy="64" rx="3.5" ry="4.5" fill="#a855f7" opacity=".5"/><ellipse cx="68" cy="64" rx="3.5" ry="4.5" fill="#a855f7" opacity=".5"/><rect x="30" y="95" width="5" height="30" rx="2" fill="#1a1a2e"/><polygon points="30,95 35,95 32.5,82" fill="#252540"/><circle cx="60" cy="50" r="8" fill="none" stroke="#3d1a5e" stroke-width="1" opacity=".5" stroke-dasharray="3 2"/></svg>`,
+  boss_chain:`<svg width="130" height="155" viewBox="0 0 130 155"><ellipse cx="65" cy="140" rx="40" ry="12" fill="#000" opacity=".4"/><rect x="30" y="82" width="70" height="55" rx="4" fill="#0a0a10"/><rect x="20" y="87" width="20" height="44" rx="3" fill="#070710"/><rect x="90" y="87" width="20" height="44" rx="3" fill="#070710"/><ellipse cx="65" cy="65" rx="24" ry="22" fill="#10101a"/><rect x="41" y="52" width="48" height="26" rx="4" fill="#141420"/><rect x="44" y="56" width="14" height="10" rx="1" fill="#050510"/><rect x="72" y="56" width="14" height="10" rx="1" fill="#050510"/><rect x="44" y="56" width="14" height="10" rx="1" fill="#c9a227" opacity=".3"/><rect x="72" y="56" width="14" height="10" rx="1" fill="#c9a227" opacity=".3"/><path d="M10 90 Q0 80 5 68 Q15 80 20 88Z" fill="#050508"/><path d="M120 90 Q130 80 125 68 Q115 80 110 88Z" fill="#050508"/><circle cx="30" cy="90" r="5" fill="#111" stroke="#c9a227" stroke-width="1.5"/><circle cx="100" cy="90" r="5" fill="#111" stroke="#c9a227" stroke-width="1.5"/><line x1="10" y1="90" x2="25" y2="90" stroke="#c9a227" stroke-width="2"/><line x1="105" y1="90" x2="120" y2="90" stroke="#c9a227" stroke-width="2"/></svg>`,
+  boss_pope:`<svg width="130" height="160" viewBox="0 0 130 160"><ellipse cx="65" cy="145" rx="40" ry="12" fill="#000" opacity=".4"/><rect x="28" y="85" width="74" height="58" rx="4" fill="#0d0510"/><rect x="18" y="90" width="20" height="46" rx="3" fill="#090308"/><rect x="92" y="90" width="20" height="46" rx="3" fill="#090308"/><ellipse cx="65" cy="70" rx="26" ry="24" fill="#120810"/><path d="M39 58 Q42 38 65 35 Q88 38 91 58" fill="#120810" stroke="#1e0e18" stroke-width="1"/><path d="M50 35 Q52 18 65 15 Q78 18 80 35" fill="#120810" stroke="#1e0e18" stroke-width="1"/><ellipse cx="53" cy="67" rx="7" ry="8" fill="#080305"/><ellipse cx="77" cy="67" rx="7" ry="8" fill="#080305"/><ellipse cx="53" cy="66" rx="4" ry="5" fill="#f59e0b" opacity=".4"/><ellipse cx="77" cy="66" rx="4" ry="5" fill="#f59e0b" opacity=".4"/><circle cx="65" cy="20" r="8" fill="none" stroke="#c9a227" stroke-width="2" opacity=".6"/><line x1="65" y1="12" x2="65" y2="6" stroke="#c9a227" stroke-width="2"/><line x1="59" y1="15" x2="55" y2="10" stroke="#c9a227" stroke-width="1.5"/><line x1="71" y1="15" x2="75" y2="10" stroke="#c9a227" stroke-width="1.5"/></svg>`,
+  boss_buried:`<svg width="150" height="160" viewBox="0 0 150 160"><ellipse cx="75" cy="148" rx="55" ry="12" fill="#000" opacity=".4"/><ellipse cx="75" cy="100" rx="52" ry="50" fill="#0a0a05"/><ellipse cx="75" cy="68" rx="32" ry="28" fill="#121208"/><ellipse cx="60" cy="62" rx="10" ry="12" fill="#050503"/><ellipse cx="90" cy="62" rx="10" ry="12" fill="#050503"/><ellipse cx="60" cy="61" rx="6" ry="8" fill="#78716c" opacity=".5"/><ellipse cx="90" cy="61" rx="6" ry="8" fill="#78716c" opacity=".5"/><ellipse cx="60" cy="61" rx="3" ry="4" fill="#d6d3d1" opacity=".4"/><ellipse cx="90" cy="61" rx="3" ry="4" fill="#d6d3d1" opacity=".4"/><path d="M43 62 Q15 50 8 30" stroke="#1c1c10" stroke-width="4" fill="none"/><path d="M107 62 Q135 50 142 30" stroke="#1c1c10" stroke-width="4" fill="none"/><path d="M43 90 Q18 100 10 120" stroke="#1c1c10" stroke-width="4" fill="none"/><path d="M107 90 Q132 100 140 120" stroke="#1c1c10" stroke-width="4" fill="none"/><path d="M43 78 Q15 78 5 88" stroke="#1c1c10" stroke-width="4" fill="none"/><path d="M107 78 Q135 78 145 88" stroke="#1c1c10" stroke-width="4" fill="none"/><path d="M55 78 Q75 86 95 78" stroke="#1a1a0a" stroke-width="2" fill="none"/></svg>`,
+};
+
+// ===================================================
+// GAME DATA
+// ===================================================
+const AREAS=[
+  {name:"Valley of Crows",   depth:"I",   emoji:"🦅",bossId:0,sprKey:"boss_drowned"},
+  {name:"Whispering Forest", depth:"II",  emoji:"🌲",bossId:1,sprKey:"boss_mother"},
+  {name:"Eclipse Cathedral", depth:"III", emoji:"⛪",bossId:2,sprKey:"boss_chain"},
+  {name:"Frozen Kingdom",    depth:"IV",  emoji:"❄️",bossId:3,sprKey:"boss_drowned"},
+  {name:"Flesh Castle",      depth:"V",   emoji:"🏰",bossId:4,sprKey:"boss_pope"},
+  {name:"Dead Ocean",        depth:"VI",  emoji:"🌊",bossId:5,sprKey:"boss_buried"},
+  {name:"Abyss Tower",       depth:"VII", emoji:"🗼",bossId:6,sprKey:"boss_nytharoth"},
+  {name:"Underground Graves",depth:"VIII",emoji:"💀",bossId:7,sprKey:"boss_elyra"},
+];
+
+const BOSSES=[
+  {name:"The Drowned King",   title:"First Heart of the Eclipse",   sprKey:"boss_drowned",  hp:130,atk:12,def:2,gold:300,souls:150,
+   lore:"A king who drowned his entire kingdom to keep it from the Eclipsed. In the end, the water corrupted him too.",
+   death:'"...the tide... finally... takes me..."'},
+  {name:"Mother Without Face",title:"Second Heart of the Eclipse",  sprKey:"boss_mother",   hp:150,atk:10,def:3,gold:400,souls:200,
+   lore:"She was a healer who tried to absorb every Eclipsed creature's pain. She lost her face and her sanity.",
+   death:'"...no more pain... no more..."'},
+  {name:"Saint of Chains",    title:"Third Heart of the Eclipse",   sprKey:"boss_chain",    hp:170,atk:14,def:4,gold:500,souls:250,
+   lore:"A holy warrior who tried to bind the Black Moon with sacred chains. The Moon bound him instead.",
+   death:'"These chains... were always meant for me."'},
+  {name:"Eclipse Bride",      title:"Fourth Heart of the Eclipse",  sprKey:"acolyte",       hp:190,atk:16,def:3,gold:600,souls:300,
+   lore:"She made a pact with the Black Moon. She became its eternal vessel — and its weapon.",
+   death:'"He promised me salvation..."'},
+  {name:"Hollow Pope",        title:"Fifth Heart of the Eclipse",   sprKey:"boss_pope",     hp:210,atk:15,def:6,gold:750,souls:375,
+   lore:"The last pope, hollowed out and filled with eclipse corruption. He still preaches to an empty cathedral.",
+   death:'"...my congregation... where are they..."'},
+  {name:"Buried God",         title:"Sixth Heart of the Eclipse",   sprKey:"boss_buried",   hp:250,atk:18,def:5,gold:900,souls:450,
+   lore:"An ancient deity that humanity buried underground. The Black Moon found it and woke it.",
+   death:'"I was... forgotten. Now I am... nothing."'},
+  {name:"Nytharoth",          title:"The Black Moon — Final Boss",  sprKey:"boss_nytharoth",hp:380,atk:24,def:6,gold:2000,souls:1000,
+   lore:"The living celestial entity. The source of all corruption. And the thing you awakened, seeking power over death.",
+   death:'"...you... made me... bearer..."'},
+  {name:"Elyra",              title:"Last Fragment of the Eclipse", sprKey:"boss_elyra",    hp:190,atk:14,def:4,gold:0,souls:0,
+   lore:"The last survivor of the ancient order. She guided you here. She is also the last fragment keeping the Eclipse alive.",
+   death:'"...I know you must do this. Do it. Let the sun rise."'},
+];
+
+const ENEMIES=[
+  {name:"Eclipsed Wraith",  sprKey:"wraith",  hp:42, atk:8,  def:1, gold:18,souls:10},
+  {name:"Crow Specter",     sprKey:"crow",    hp:36, atk:7,  def:1, gold:14,souls:8},
+  {name:"Veil Crawler",     sprKey:"spider",  hp:54, atk:10, def:2, gold:22,souls:12},
+  {name:"Hollow Knight",    sprKey:"knight",  hp:68, atk:12, def:3, gold:30,souls:18},
+  {name:"Moonborn Phantom", sprKey:"phantom", hp:58, atk:11, def:2, gold:25,souls:14},
+  {name:"Eclipse Acolyte",  sprKey:"acolyte", hp:74, atk:13, def:3, gold:35,souls:20},
+];
+
+const LORE=[
+  "You remember a ritual. Fire. The Black Moon opening its eye for the first time.",
+  "Elyra watches you. She knows something she will not say.",
+  "The Eclipsed were not always monsters. They were people.",
+  "You sought a way to defeat death. The Black Moon offered you a deal.",
+  "The ancient order tried to stop you. You destroyed them all.",
+  "Reality is collapsing at the edges. The sky bleeds.",
+  "Elyra is both the cure and the curse.",
+];
+
+// ===================================================
+// SHOP DATA — unique vendor per boss
+// ===================================================
+const SHOPS=[
+  // After Boss 0 — Drowned King
+  {merchant:"🧙‍♂️",name:"Barnacle Ramos",intro:"A salt-encrusted wanderer emerges from the tide, his wares still dripping...",
+   items:[
+    {id:"tide_blade",icon:"🗡️",name:"Tide Blade",type:"weapon",stats:{atk:8},desc:"A corroded blade imbued with the Drowned King's tidal power.",price:120},
+    {id:"barnacle_shield",icon:"🛡️",name:"Barnacle Shield",type:"armor",stats:{def:5},desc:"Thick barnacles grant surprising resistance.",price:100},
+    {id:"sea_relic",icon:"🐚",name:"Sea Relic",type:"relic",stats:{maxHp:25},desc:"A relic that pulses with the rhythm of ancient tides.",price:80},
+    {id:"tide_potion",icon:"💧",name:"Tide Potion",type:"consumable",stats:{hp:50},desc:"Restores 50 HP when used in battle.",price:60},
+  ]},
+  // After Boss 1 — Mother Without Face
+  {merchant:"🧝‍♀️",name:"Weeping Mara",intro:"A faceless figure veiled in grey silk offers her wares without a word...",
+   items:[
+    {id:"grief_staff",icon:"🪄",name:"Grief Staff",type:"weapon",stats:{atk:7,eclBonus:0.3},desc:"Channels grief into devastating shadow energy.",price:160},
+    {id:"woven_veil",icon:"🧣",name:"Woven Veil",type:"armor",stats:{def:4,veilBonus:0.4},desc:"A veil woven from the tears of the lost. Amplifies healing.",price:130},
+    {id:"tear_amulet",icon:"💎",name:"Tear Amulet",type:"relic",stats:{maxHp:35,maxMp:15},desc:"Crystallized sorrow grants endurance.",price:140},
+    {id:"grief_draught",icon:"🫗",name:"Grief Draught",type:"consumable",stats:{mp:40},desc:"Restores 40 MP when used.",price:70},
+  ]},
+  // After Boss 2 — Saint of Chains
+  {merchant:"⛓️",name:"Chained Varro",intro:"A hooded penitent dragging iron chains knees before you, offering forbidden relics...",
+   items:[
+    {id:"chain_sword",icon:"⚔️",name:"Chain Sword",type:"weapon",stats:{atk:12},desc:"Each strike echoes with the clanging of the Saint's chains.",price:200},
+    {id:"holy_armor",icon:"🛡️",name:"Holy Armor",type:"armor",stats:{def:8},desc:"Sacred plates consecrated before the fall of the Church.",price:190},
+    {id:"broken_halo",icon:"👑",name:"Broken Halo",type:"relic",stats:{atk:4,eclBonus:0.5},desc:"Half a halo. Still radiates forbidden light.",price:170},
+    {id:"chain_elixir",icon:"⚗️",name:"Chain Elixir",type:"consumable",stats:{hp:80,mp:20},desc:"Restores 80 HP and 20 MP.",price:100},
+  ]},
+  // After Boss 3 — Eclipse Bride
+  {merchant:"👻",name:"Shade Lyris",intro:"A translucent figure in a wedding gown drifts between market stalls only she can see...",
+   items:[
+    {id:"bride_dagger",icon:"🗡️",name:"Bride's Dagger",type:"weapon",stats:{atk:9,veilBonus:0.5},desc:"Steals life with each wound inflicted. Heals as you attack.",price:220},
+    {id:"cursed_ring",icon:"💍",name:"Cursed Ring",type:"relic",stats:{maxMp:30,atk:5},desc:"A wedding ring corroded by the Black Moon's power.",price:200},
+    {id:"eclipse_shroud",icon:"🧥",name:"Eclipse Shroud",type:"armor",stats:{def:6,maxHp:20},desc:"Absorbs eclipse energy, reducing damage taken.",price:210},
+    {id:"night_potion",icon:"🌙",name:"Night Potion",type:"consumable",stats:{hp:60,mp:60},desc:"Restores 60 HP and 60 MP instantly.",price:130},
+  ]},
+  // After Boss 4 — Hollow Pope
+  {merchant:"🧟",name:"Hollow Deacon",intro:"An empty-eyed deacon recites scripture with no tongue, gesturing at relics on a stone slab...",
+   items:[
+    {id:"pope_staff",icon:"🪄",name:"Pope's Staff",type:"weapon",stats:{atk:14,eclBonus:0.4},desc:"A void where faith once lived. Channels eclipse energy effortlessly.",price:280},
+    {id:"hollow_robe",icon:"👘",name:"Hollow Robe",type:"armor",stats:{def:9,maxHp:30},desc:"Stitched from prayers that no god answered.",price:260},
+    {id:"empty_chalice",icon:"🏺",name:"Empty Chalice",type:"relic",stats:{maxMp:40,veilBonus:0.3},desc:"Eternally refilling with moon energy.",price:240},
+    {id:"void_draught",icon:"🫙",name:"Void Draught",type:"consumable",stats:{hp:100,mp:50},desc:"Restores 100 HP and 50 MP.",price:160},
+  ]},
+  // After Boss 5 — Buried God
+  {merchant:"🪨",name:"Ancient Lira",intro:"A stone-veiled relic hunter offers artifacts she excavated from the buried god's temple...",
+   items:[
+    {id:"ancient_blade",icon:"⚔️",name:"Ancient Blade",type:"weapon",stats:{atk:18},desc:"Forged before humanity's memory. Cuts through any corruption.",price:360},
+    {id:"stone_armor",icon:"🛡️",name:"Stone Armor",type:"armor",stats:{def:13,maxHp:40},desc:"Petrified divine flesh. Absorbs catastrophic blows.",price:340},
+    {id:"forgotten_idol",icon:"🗿",name:"Forgotten Idol",type:"relic",stats:{atk:6,def:4,maxHp:20},desc:"A forgotten god's token. Grants its last blessings to the bearer.",price:300},
+    {id:"ancient_tonic",icon:"⚗️",name:"Ancient Tonic",type:"consumable",stats:{hp:150},desc:"Restores 150 HP instantly.",price:200},
+  ]},
+  // After Boss 6 — Nytharoth
+  {merchant:"🌑",name:"Void Walker",intro:"A being made of shattered moonlight materializes, trading what remains of the Black Moon's power...",
+   items:[
+    {id:"moon_shard_blade",icon:"🗡️",name:"Moon Shard Blade",type:"weapon",stats:{atk:24,eclBonus:0.8},desc:"Forged from Nytharoth's shattered core. The ultimate weapon.",price:600},
+    {id:"eclipse_armor",icon:"🛡️",name:"Eclipse Armor",type:"armor",stats:{def:16,maxHp:60},desc:"Plated with the Black Moon's outer shell.",price:580},
+    {id:"black_moon_core",icon:"🌑",name:"Black Moon Core",type:"relic",stats:{atk:8,def:5,maxHp:40,maxMp:30},desc:"A fragment of the Black Moon itself. Power beyond reckoning.",price:550},
+    {id:"eclipse_draught",icon:"💜",name:"Eclipse Draught",type:"consumable",stats:{hp:200,mp:100},desc:"Full restoration of HP and MP.",price:300},
+  ]},
+  // Area 7 — no shop (Elyra final fight)
+  null
+];
+
+// ===================================================
+// SKILLS
+// ===================================================
+const SKILLS_DEF=[
+  {id:'str',  nk:'sk_str_n', dk:'sk_str_d',  max:5, eff:'atk',      val:3},
+  {id:'end',  nk:'sk_end_n', dk:'sk_end_d',  max:5, eff:'def',      val:2},
+  {id:'vit',  nk:'sk_vit_n', dk:'sk_vit_d',  max:5, eff:'maxHp',    val:20},
+  {id:'moon', nk:'sk_moon_n',dk:'sk_moon_d', max:5, eff:'maxMp',    val:10},
+  {id:'ecl',  nk:'sk_ecl_n', dk:'sk_ecl_d',  max:3, eff:'eclBonus', val:0.5},
+  {id:'veil', nk:'sk_veil_n',dk:'sk_veil_d', max:3, eff:'veilBonus',val:0.5},
+  {id:'dice', nk:'sk_dice_n',dk:'sk_dice_d', max:1, eff:'extraDie', val:1},
+  {id:'soul', nk:'sk_soul_n',dk:'sk_soul_d', max:3, eff:'goldBonus',val:0.25},
+];
+
+// ===================================================
+// STATE
+// ===================================================
+let G={};
+let selectedItemIdx=-1;
+
+function newState(){
+  return {
+    hp:100,maxHp:100,mp:50,maxMp:50,atk:8,def:3,
+    gold:0,souls:0,level:1,xp:0,xpNext:20,sp:0,kills:0,
+    area:0,floor:1,
+    defending:false,phase:'roll',
+    bfHp:100,bfMp:50,bfArea:0,bfLevel:1,bfSp:0,bfAtk:8,bfDef:3,bfMaxHp:100,bfMaxMp:50,bfGold:0,
+    dice:[],
+    eHp:0,eMaxHp:0,enemy:null,isBoss:false,
+    loreShown:[],
+    skills:{str:0,end:0,vit:0,moon:0,ecl:0,veil:0,dice:0,soul:0},
+    eclBonus:0,veilBonus:0,extraDie:0,goldBonus:0,
+    equipped:{weapon:null,armor:null,relic:null},
+    inventory:[],
+    shopUnlocked:Array(8).fill(false),
+    shopBought:Array(8).fill(null).map(()=>[]),
+    gameOver:false,won:false,
+  };
+}
+
+// ===================================================
+// SAVE / LOAD
+// ===================================================
+const SAVE_KEY='votbm_save_v4';
+function saveGame(){
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify({...G,dice:[],enemy:null}));}catch(e){}
+}
+function loadGame(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  }catch(e){return null;}
+}
+function deleteSave(){
+  if(!confirm('Delete save?')) return;
+  localStorage.removeItem(SAVE_KEY);
+  location.reload();
+}
+
+function checkSave(){
+  const s=loadGame();
+  const si=document.getElementById('save-info');
+  const bc=document.getElementById('btn-continue');
+  const bd=document.getElementById('btn-delete');
+  if(s){
+    si.style.display='block';
+    si.textContent=t('save_found',{lv:s.level,a:s.area+1});
+    bc.style.display='block';
+    bd.style.display='block';
+  } else {
+    si.textContent=t('no_save');
+  }
+}
+
+// ===================================================
+// START
+// ===================================================
+function startGame(fromSave){
+  if(fromSave){
+    const s=loadGame();
+    if(s){G=s;G.enemy=null;G.dice=[];G.phase='roll';G.gameOver=false;}
+    else{G=newState();}
+  } else {
+    G=newState();
+    saveGame();
+  }
+  clearLog();
+  if(!fromSave){
+    log(t('log_awaken'),'lore');log(t('log_darkness'),'lore');
+    log(t('log_elyra'),'lore');log(t('log_elyra2'),'lore');
+  } else {
+    log('🔥 Save loaded. Welcome back, Bearer.','system');
+  }
+  showScreen('game-screen');
+  renderSkills();spawnEnemy();buildMap();
+}
+
+function resetGame(){showScreen('title-screen');checkSave();}
+
+// ===================================================
+// UI
+// ===================================================
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function showPopup(id){document.getElementById(id).classList.add('show');}
+function closePopup(id){document.getElementById(id).classList.remove('show');}
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(name==='shop') renderShop();
+  if(name==='inventory'){renderInventory();document.getElementById('tab-shop-btn').classList.remove('notify');}
+  if(name==='skills') renderSkills();
+}
+function switchTabById(name){
+  const btn=document.querySelector(`.tab-btn[onclick*="'${name}'"]`);
+  switchTab(name,btn);
+}
+
+function log(msg,cls=''){
+  ['battle-log','battle-log-full'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const d=document.createElement('div');d.className='log-line'+(cls?' '+cls:'');d.textContent=msg;
+    el.appendChild(d);el.scrollTop=el.scrollHeight;
+    if(el.children.length>300) el.removeChild(el.children[0]);
+  });
+}
+function clearLog(){['battle-log','battle-log-full'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});}
+
+function updateHUD(){
+  G.hp=Math.max(0,Math.min(G.maxHp,G.hp));
+  G.mp=Math.max(0,Math.min(G.maxMp,G.mp));
+  ['hp','mp'].forEach(x=>{
+    document.getElementById(x+'-text').textContent=`${G[x]}/${G['max'+x.toUpperCase()+(x==='hp'?'p':'p')]}`;
+  });
+  document.getElementById('hp-text').textContent=`${G.hp}/${G.maxHp}`;
+  document.getElementById('mp-text').textContent=`${G.mp}/${G.maxMp}`;
+  document.getElementById('xp-text').textContent=`${G.xp}/${G.xpNext}`;
+  document.getElementById('hp-bar').style.width=(G.hp/G.maxHp*100)+'%';
+  document.getElementById('mp-bar').style.width=(G.mp/G.maxMp*100)+'%';
+  document.getElementById('xp-bar').style.width=(G.xp/G.xpNext*100)+'%';
+  document.getElementById('hud-atk').textContent=G.atk;
+  document.getElementById('hud-def').textContent=G.def;
+  document.getElementById('hud-lvl').textContent=G.level;
+  document.getElementById('hud-gold').textContent=G.gold;
+  document.getElementById('sp-display').textContent=G.sp;
+  document.getElementById('stat-souls').textContent=G.souls;
+  document.getElementById('stat-gold2').textContent=G.gold;
+  document.getElementById('stat-kills').textContent=G.kills;
+  document.getElementById('stat-area').textContent=`${G.area+1}/8`;
+  document.getElementById('inv-gold-display').textContent=G.gold;
+  const a=AREAS[G.area];
+  document.getElementById('area-name').textContent=a.emoji+' '+a.name;
+  const flStr=G.isBoss?t('boss_lbl'):t('floor')+' '+G.floor;
+  document.getElementById('area-floor').textContent=t('depth')+' '+a.depth+' — '+flStr;
+}
+
+function updateEnemyUI(){
+  if(!G.enemy) return;
+  document.getElementById('enemy-name').textContent=G.enemy.name;
+  document.getElementById('enemy-title-txt').textContent=G.enemy.title||'Eclipsed creature';
+  const pct=G.eHp/G.eMaxHp*100;
+  document.getElementById('enemy-hp-bar').style.width=pct+'%';
+  document.getElementById('enemy-hp-text').textContent=`${G.eHp} / ${G.eMaxHp}`;
+  document.getElementById('monster-svg-wrap').innerHTML=
+    `<div class="monster-svg${G.isBoss?' boss-glow':''}" id="monster-sprite">${SPR[G.enemy.sprKey]||SPR.wraith}</div>`;
+}
+
+function buildMap(){
+  const row=document.getElementById('map-row');row.innerHTML='';
+  AREAS.forEach((a,i)=>{
+    if(i>0){const l=document.createElement('div');l.className='map-line';row.appendChild(l);}
+    const n=document.createElement('div');
+    n.className='map-node'+(i<G.area?' done':i===G.area?' current':' locked');
+    n.textContent=a.emoji;n.title=a.name;row.appendChild(n);
+  });
+}
+
+// ===================================================
+// DICE
+// ===================================================
+const PIPS={1:[{r:1,c:1}],2:[{r:0,c:0},{r:2,c:2}],3:[{r:0,c:0},{r:1,c:1},{r:2,c:2}],
+  4:[{r:0,c:0},{r:0,c:2},{r:2,c:0},{r:2,c:2}],
+  5:[{r:0,c:0},{r:0,c:2},{r:1,c:1},{r:2,c:0},{r:2,c:2}],
+  6:[{r:0,c:0},{r:0,c:2},{r:1,c:0},{r:1,c:2},{r:2,c:0},{r:2,c:2}]};
+
+function makeDie(val,idx){
+  const die=document.createElement('div');die.className='die';die.setAttribute('data-val',val);die.dataset.index=idx;die.onclick=()=>toggleDie(idx);
+  const g=document.createElement('div');g.className='die-grid';
+  for(let r=0;r<3;r++) for(let c=0;c<3;c++){
+    const cell=document.createElement('div');cell.className='die-cell';
+    if(PIPS[val].some(p=>p.r===r&&p.c===c)){const pip=document.createElement('div');pip.className='pip';cell.appendChild(pip);}
+    g.appendChild(cell);
+  }
+  die.appendChild(g);return die;
+}
+
+function rollDice(){
+  const count=3+(G.extraDie||0);G.dice=[];
+  const row=document.getElementById('dice-row');row.innerHTML='';
+  for(let i=0;i<count;i++){
+    const val=Math.floor(Math.random()*6)+1;G.dice.push({val,selected:false});
+    const die=makeDie(val,i);die.classList.add('rolling');row.appendChild(die);
+    setTimeout(()=>die.classList.remove('rolling'),550);
+  }
+  G.phase='action';
+  const total=G.dice.reduce((s,d)=>s+d.val,0);
+  document.getElementById('dice-result').textContent=t('log_roll',{d:G.dice.map(d=>d.val).join(' · '),t:total});
+  document.getElementById('roll-btn').style.display='none';
+  setButtonsEnabled(true);
+}
+
+function toggleDie(i){G.dice[i].selected=!G.dice[i].selected;document.querySelectorAll('.die')[i].classList.toggle('selected',G.dice[i].selected);}
+function diceSum(){const sel=G.dice.filter(d=>d.selected);return(sel.length?sel:G.dice).reduce((s,d)=>s+d.val,0);}
+function setButtonsEnabled(on){['btn-attack','btn-defend','btn-special','btn-heal'].forEach(id=>{document.getElementById(id).disabled=!on;});}
+function resetDice(){G.phase='roll';document.getElementById('roll-btn').style.display='';document.getElementById('dice-row').innerHTML='';document.getElementById('dice-result').textContent='';setButtonsEnabled(false);}
+
+// ===================================================
+// SPAWN
+// ===================================================
+function spawnEnemy(){
+  G.isBoss=(G.floor>3);
+  if(G.isBoss){
+    const b=BOSSES[AREAS[G.area].bossId];
+    G.enemy={...b};
+    G.eMaxHp=Math.floor(b.hp*(1+G.area*0.1));G.eHp=G.eMaxHp;
+    log(t('log_boss_near'),'system');
+    log(`💀 ${b.name} — "${b.title}"`,'boss');
+    if(b.lore) setTimeout(()=>showLorePopup(b.name.toUpperCase(),b.lore),1100);
+  } else {
+    const base=ENEMIES[Math.floor(Math.random()*ENEMIES.length)];
+    const sc=1+(G.area*0.28)+(G.level*0.06);
+    G.enemy={...base,hp:Math.floor(base.hp*sc),atk:Math.floor(base.atk*sc),def:Math.floor(base.def*sc),gold:Math.floor(base.gold*sc),souls:Math.floor(base.souls*sc)};
+    G.eMaxHp=G.enemy.hp;G.eHp=G.eMaxHp;
+    log(t('log_spawn',{e:G.enemy.name}),'system');
+  }
+  G.defending=false;updateEnemyUI();updateHUD();buildMap();resetDice();
+  maybeShowLore();
+}
+
+function maybeShowLore(){
+  if(Math.random()<0.22&&G.loreShown.length<LORE.length){
+    const unseen=LORE.filter((_,i)=>!G.loreShown.includes(i));
+    if(unseen.length){const idx=LORE.indexOf(unseen[0]);G.loreShown.push(idx);setTimeout(()=>log(t('memory')+': '+unseen[0],'lore'),900);}
+  }
+}
+
+// ===================================================
+// ACTIONS
+// ===================================================
+function doAction(type){
+  if(G.phase!=='action'||G.gameOver) return;
+  const dv=diceSum();G.defending=false;
+  switch(type){
+    case 'attack':{
+      const dmg=Math.max(1,(G.atk+dv)-(G.enemy.def||0));
+      G.eHp-=dmg;log(t('log_strike',{dmg}),'damage');showDmg(dmg,false);hitSprite();
+      break;}
+    case 'defend':{G.defending=true;log(t('log_defend',{d:dv}),'system');break;}
+    case 'special':{
+      if(G.mp<10){log(t('log_no_mp'),'system');return;}
+      G.mp-=10;const m=1+(G.eclBonus||0);
+      const dmg=Math.max(1,Math.floor((G.atk*2+dv-(G.enemy.def||0))*m));
+      G.eHp-=dmg;log(t('log_eclipse',{dmg}),'boss');showDmg(dmg,false);hitSprite();break;}
+    case 'heal':{
+      const m=1+(G.veilBonus||0);const hp=Math.floor((dv*2.8+G.level*4)*m);
+      G.hp=Math.min(G.maxHp,G.hp+hp);log(t('log_veil',{hp}),'heal');showDmg('+'+hp,true);break;}
+  }
+  G.eHp=Math.max(0,G.eHp);updateEnemyUI();
+  if(G.eHp<=0){enemyDied();return;}
+  setButtonsEnabled(false);
+  setTimeout(()=>enemyAttack(),720);
+}
+
+function hitSprite(){const sp=document.getElementById('monster-sprite');if(sp){sp.classList.add('hit');setTimeout(()=>sp.classList.remove('hit'),300);}}
+function showDmg(val,heal){
+  const area=document.getElementById('monster-area');
+  const d=document.createElement('div');d.className='dmg-float'+(heal?' heal-float':'');d.textContent=val;
+  area.appendChild(d);setTimeout(()=>d.remove(),850);
+}
+
+function enemyAttack(){
+  const e=G.enemy;const roll=Math.floor(Math.random()*6)+1;
+  let dmg=Math.max(1,e.atk+roll-G.def);if(G.defending) dmg=Math.max(1,Math.floor(dmg*0.35));
+  G.hp-=dmg;
+  log(t('log_enemy_atk',{e:e.name,dmg,b:G.defending?t('log_blocked'):''}), 'damage');
+  if(G.defending) document.getElementById('game-screen').classList.add('shake');
+  setTimeout(()=>document.getElementById('game-screen').classList.remove('shake'),360);
+  updateHUD();
+  if(G.hp<=0){playerDied();return;}
+  G.mp=Math.min(G.maxMp,G.mp+4);updateHUD();resetDice();saveGame();
+}
+
+// ===================================================
+// ENEMY DEATH
+// ===================================================
+function enemyDied(){
+  const e=G.enemy;
+  const gm=1+(G.goldBonus||0);
+  if(G.isBoss){
+    log(t('log_boss_dead',{e:e.name}),'victory');
+    if(e.death) log(e.death,'lore');
+    log(t('log_heart'),'boss');
+    const g=Math.floor((e.gold||0)*gm);const s=e.souls||0;
+    G.gold+=g;G.souls+=s;G.kills++;
+    if(g>0) log(t('log_gold',{g}),'souls');
+    if(s>0) log(t('log_souls_earn',{s}),'souls');
+    gainXP(60);
+    // Unlock shop for this area
+    if(G.area<7 && SHOPS[G.area]){
+      G.shopUnlocked[G.area]=true;
+      unlockShopPopup(G.area);
+    }
+    saveBonfire();saveGame();
+    if(AREAS[G.area].bossId===6){setTimeout(()=>afterNytharoth(),1500);return;}
+    if(AREAS[G.area].bossId===7){setTimeout(()=>trueEnding(),1500);return;}
+    setTimeout(()=>nextArea(),2200);
+  } else {
+    log(t('log_dead',{e:e.name}),'system');
+    const g=Math.floor((e.gold||0)*gm);const s=e.souls||0;
+    G.gold+=g;G.souls+=s;G.kills++;
+    if(g>0) log(t('log_gold',{g}),'souls');
+    gainXP(12);G.mp=Math.min(G.maxMp,G.mp+6);G.floor++;
+    updateHUD();saveGame();setTimeout(()=>spawnEnemy(),900);
+  }
+}
+
+function gainXP(amt){
+  G.xp+=amt;
+  while(G.xp>=G.xpNext){G.xp-=G.xpNext;levelUp();}
+  updateHUD();
+}
+
+function levelUp(){
+  G.level++;G.xpNext=Math.floor(G.xpNext*1.45);
+  G.maxHp+=15;G.hp=Math.min(G.maxHp,G.hp+20);
+  G.maxMp+=5;G.mp=Math.min(G.maxMp,G.mp+8);
+  G.atk+=2;G.def+=1;G.sp++;
+  log(t('log_levelup',{lv:G.level,a:2,d:1,h:15}),'victory');
+  document.getElementById('lu-title').textContent=t('lu_title');
+  document.getElementById('lu-text').textContent=t('lu_text',{lv:G.level,h:15,m:5,a:2,d:1});
+  showPopup('levelup-popup');renderSkills();updateHUD();
+}
+
+function saveBonfire(){
+  G.bfHp=G.hp;G.bfMp=G.mp;G.bfArea=G.area;G.bfLevel=G.level;G.bfSp=G.sp;
+  G.bfAtk=G.atk;G.bfDef=G.def;G.bfMaxHp=G.maxHp;G.bfMaxMp=G.maxMp;G.bfGold=G.gold;
+}
+
+function nextArea(){
+  G.area++;G.floor=1;G.isBoss=false;
+  G.hp=Math.min(G.maxHp,G.hp+40);
+  log(t('log_next',{area:AREAS[G.area].name}),'lore');
+  updateHUD();spawnEnemy();
+}
+
+// ===================================================
+// PLAYER DEATH
+// ===================================================
+function playerDied(){
+  G.gameOver=true;log(t('log_you_died'),'death');setButtonsEnabled(false);
+  document.getElementById('death-msg').textContent=t('died_msg',{e:G.enemy.name});
+  document.getElementById('death-souls').textContent=t('souls_lost',{g:G.gold,k:G.kills});
+  setTimeout(()=>showScreen('death-screen'),1500);
+}
+
+function restartFromBonfire(){
+  G.gameOver=false;
+  G.hp=G.bfHp;G.mp=G.bfMp;G.area=G.bfArea;G.floor=1;
+  G.level=G.bfLevel;G.sp=G.bfSp;G.atk=G.bfAtk;G.def=G.bfDef;
+  G.maxHp=G.bfMaxHp;G.maxMp=G.bfMaxMp;
+  G.gold=Math.floor(G.bfGold*0.5);
+  G.isBoss=false;log(t('log_bonfire'),'system');
+  showScreen('game-screen');reapplyEquipment();spawnEnemy();renderSkills();saveGame();
+}
+
+// ===================================================
+// ENDINGS
+// ===================================================
+function afterNytharoth(){
+  showLorePopup('NYTHAROTH FALLS','"...you... made me... bearer..."\n\nThe Black Moon shatters.\nBut its last fragment still lives.\nIn Elyra.');
+  setTimeout(()=>nextArea(),3000);
+}
+function trueEnding(){
+  G.gameOver=true;G.won=true;saveGame();
+  document.getElementById('victory-text').innerHTML=t('victory_text').replace(/\n/g,'<br>');
+  document.getElementById('victory-stats').textContent=`Gold: ${G.gold} | Kills: ${G.kills} | Level: ${G.level} | Souls: ${G.souls}`;
+  showScreen('victory-screen');
+}
+
+// ===================================================
+// SHOP
+// ===================================================
+function unlockShopPopup(areaIdx){
+  const shop=SHOPS[areaIdx];if(!shop)return;
+  document.getElementById('su-merchant').textContent=shop.merchant;
+  document.getElementById('su-title').textContent='MERCHANT APPEARS';
+  document.getElementById('su-text').textContent=shop.merchant+' '+shop.name+'\n\n"'+shop.intro+'"';
+  showPopup('shop-unlock-popup');
+  document.getElementById('tab-shop-btn').classList.add('notify');
+}
+
+function renderShop(){
+  const el=document.getElementById('shop-content');
+  // Find the latest unlocked shop
+  let shopIdx=-1;
+  for(let i=SHOPS.length-1;i>=0;i--){if(G.shopUnlocked[i]&&SHOPS[i]){shopIdx=i;break;}}
+  if(shopIdx===-1){
+    el.innerHTML=`<div class="shop-locked"><div class="lock-icon">🔒</div><h3 style="font-family:'Cinzel',serif;color:var(--muted);margin-bottom:8px;">${t('shop_locked_title')}</h3><p style="color:var(--muted);font-style:italic;">${t('shop_locked_msg')}</p></div>`;
+    return;
+  }
+  const shop=SHOPS[shopIdx];
+  const bought=G.shopBought[shopIdx]||[];
+  el.innerHTML=`
+    <div class="shop-header">
+      <div class="shop-merchant">${shop.merchant}</div>
+      <h2>${shop.name}</h2>
+      <p>"${shop.intro}"</p>
+    </div>
+    <div class="shop-gold-bar">💰 ${G.gold} Gold</div>
+    <div class="shop-grid">
+      ${shop.items.map((item,i)=>{
+        const isBought=bought.includes(item.id);
+        const statsStr=Object.entries(item.stats).map(([k,v])=>{
+          const names={atk:'ATK',def:'DEF',maxHp:'Max HP',maxMp:'Max MP',hp:'HP',mp:'MP',eclBonus:'Eclipse +',veilBonus:'Veil +'};
+          return `+${typeof v==='number'&&v<1?(v*100+'%'):v} ${names[k]||k}`;
+        }).join('  ');
+        return `<div class="shop-item">
+          <div class="si-icon">${item.icon}</div>
+          <div class="si-name">${item.name}</div>
+          <div class="si-stats">${statsStr}</div>
+          <div class="si-desc">${item.desc}</div>
+          <div class="si-price">💰 ${item.price}</div>
+          <button class="buy-btn${isBought?' bought':''}" ${isBought||G.gold<item.price?'disabled':''} onclick="buyItem(${shopIdx},${i})">
+            ${isBought?t('bought_btn'):t('buy_btn')}
+          </button>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+function buyItem(shopIdx,itemIdx){
+  const shop=SHOPS[shopIdx];if(!shop)return;
+  const item=shop.items[itemIdx];
+  if(G.gold<item.price) return;
+  if((G.shopBought[shopIdx]||[]).includes(item.id)) return;
+  G.gold-=item.price;
+  G.shopBought[shopIdx]=[...(G.shopBought[shopIdx]||[]),item.id];
+  if(item.type==='consumable'){
+    G.inventory.push({...item,shopIdx,itemIdx,isConsumable:true});
+  } else {
+    G.inventory.push({...item,shopIdx,itemIdx,isConsumable:false});
+  }
+  log(t('log_buy',{item:item.name}),'shop');
+  updateHUD();renderShop();renderInventory();saveGame();
+}
+
+// ===================================================
+// INVENTORY
+// ===================================================
+const SLOT_LABELS={weapon:'equip_weapon',armor:'equip_armor',relic:'equip_relic'};
+
+function renderInventory(){
+  // Equip slots
+  const slots=document.getElementById('equip-slots');
+  slots.innerHTML=['weapon','armor','relic'].map(slot=>{
+    const eq=G.equipped[slot];
+    return `<div class="equip-slot${eq?' filled':''}">
+      <div class="equip-slot-label">${t(SLOT_LABELS[slot])}</div>
+      <div class="equip-slot-item">${eq?eq.icon:'—'}</div>
+      <div class="equip-slot-name">${eq?eq.name:t('equip_empty')}</div>
+    </div>`;
+  }).join('');
+
+  const grid=document.getElementById('inv-grid');
+  if(!G.inventory.length){
+    grid.innerHTML=`<div class="inv-empty">${t('inv_empty')}</div>`;return;
+  }
+  grid.innerHTML=G.inventory.map((item,i)=>{
+    const eq=Object.values(G.equipped).some(e=>e&&e.id===item.id);
+    const statsStr=Object.entries(item.stats).map(([k,v])=>{
+      const names={atk:'ATK',def:'DEF',maxHp:'Max HP',maxMp:'Max MP',hp:'HP',mp:'MP',eclBonus:'Ecl',veilBonus:'Veil'};
+      return `+${typeof v==='number'&&v<1?(v*100+'%'):v} ${names[k]||k}`;
+    }).join(' ');
+    return `<div class="inv-slot${eq?' equipped':''}" onclick="openItemPopup(${i})">
+      <div class="item-icon">${item.icon}</div>
+      <div class="item-type">${t('equip_'+item.type)||item.type}</div>
+      <div class="item-name">${item.name}</div>
+      <div class="item-stats">${statsStr}</div>
+      ${eq?`<div class="equip-badge">✓ EQUIPPED</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function openItemPopup(idx){
+  selectedItemIdx=idx;
+  const item=G.inventory[idx];
+  document.getElementById('ip-icon').textContent=item.icon;
+  document.getElementById('ip-name').textContent=item.name;
+  document.getElementById('ip-desc').textContent=item.desc;
+  const statsStr=Object.entries(item.stats).map(([k,v])=>{
+    const n={atk:'ATK',def:'DEF',maxHp:'Max HP',maxMp:'Max MP',hp:'HP restore',mp:'MP restore',eclBonus:'Eclipse Bonus',veilBonus:'Veil Bonus'};
+    return `+${typeof v==='number'&&v<1?(v*100+'%'):v} ${n[k]||k}`;
+  }).join('\n');
+  document.getElementById('ip-stats').textContent=statsStr;
+  const equip=document.getElementById('ip-equip-btn');
+  if(item.isConsumable){equip.textContent='USE NOW';}
+  else{const isEq=Object.values(G.equipped).some(e=>e&&e.id===item.id);equip.textContent=isEq?'UNEQUIP':'EQUIP';}
+  showPopup('item-popup');
+}
+
+function equipSelectedItem(){
+  if(selectedItemIdx<0) return;
+  const item=G.inventory[selectedItemIdx];
+  closePopup('item-popup');
+  if(item.isConsumable){useConsumable(item,selectedItemIdx);return;}
+  const isEq=Object.values(G.equipped).some(e=>e&&e.id===item.id);
+  if(isEq){unequipItem(item);}
+  else{equipItem(item);}
+  renderInventory();saveGame();
+}
+
+function equipItem(item){
+  const slot=item.type;
+  if(G.equipped[slot]) unequipItem(G.equipped[slot],true);
+  G.equipped[slot]=item;
+  applyItemStats(item,1);
+  log(t('log_equip',{item:item.name}),'shop');
+  updateHUD();
+}
+
+function unequipItem(item,silent){
+  const slot=item.type;
+  G.equipped[slot]=null;
+  applyItemStats(item,-1);
+  if(!silent) log('Unequipped: '+item.name,'system');
+  updateHUD();
+}
+
+function applyItemStats(item,sign){
+  const s=item.stats;
+  if(s.atk) G.atk+=s.atk*sign;
+  if(s.def) G.def+=s.def*sign;
+  if(s.maxHp){G.maxHp+=s.maxHp*sign;if(sign>0) G.hp=Math.min(G.maxHp,G.hp+s.maxHp);}
+  if(s.maxMp){G.maxMp+=s.maxMp*sign;if(sign>0) G.mp=Math.min(G.maxMp,G.mp+s.maxMp);}
+  if(s.eclBonus) G.eclBonus=(G.eclBonus||0)+s.eclBonus*sign;
+  if(s.veilBonus) G.veilBonus=(G.veilBonus||0)+s.veilBonus*sign;
+}
+
+function useConsumable(item,idx){
+  if(item.stats.hp){G.hp=Math.min(G.maxHp,G.hp+item.stats.hp);log(`🩸 Used ${item.name}: +${item.stats.hp} HP`,'heal');}
+  if(item.stats.mp){G.mp=Math.min(G.maxMp,G.mp+item.stats.mp);log(`💧 Used ${item.name}: +${item.stats.mp} MP`,'heal');}
+  G.inventory.splice(idx,1);
+  renderInventory();updateHUD();saveGame();
+}
+
+function reapplyEquipment(){
+  // Stats already in save, just recompute bonuses from equipped items
+  // (equipment stats are already baked into G.atk etc from saveBonfire)
+}
+
+// ===================================================
+// SKILLS
+// ===================================================
+function renderSkills(){
+  const grid=document.getElementById('skills-grid');
+  grid.innerHTML='';
+  SKILLS_DEF.forEach(sk=>{
+    const lv=G.skills[sk.id]||0;const maxed=lv>=sk.max;const canAfford=G.sp>=1;
+    const card=document.createElement('div');card.className='skill-card';
+    card.innerHTML=`<div class="sk-name">${t(sk.nk)}</div><div class="sk-desc">${t(sk.dk)}</div><div class="sk-level">${'★'.repeat(lv)}${'☆'.repeat(sk.max-lv)} (${lv}/${sk.max})</div><button class="skill-up-btn" onclick="upgradeSkill('${sk.id}')" ${maxed||!canAfford?'disabled':''}>${maxed?t('maxed'):t('upg')+' '+t('cost')}</button>`;
+    grid.appendChild(card);
+  });
+  const banner=document.querySelector('.skill-points-banner .spl');
+  if(banner) banner.textContent=t('sp_lbl');
+}
+
+function upgradeSkill(id){
+  if(G.sp<1) return;
+  const sk=SKILLS_DEF.find(s=>s.id===id);if(!sk)return;
+  if((G.skills[id]||0)>=sk.max) return;
+  G.skills[id]=(G.skills[id]||0)+1;G.sp--;
+  switch(sk.eff){
+    case 'atk':G.atk+=sk.val;break;case 'def':G.def+=sk.val;break;
+    case 'maxHp':G.maxHp+=sk.val;G.hp=Math.min(G.maxHp,G.hp+sk.val);break;
+    case 'maxMp':G.maxMp+=sk.val;G.mp=Math.min(G.maxMp,G.mp+sk.val);break;
+    case 'eclBonus':G.eclBonus=(G.eclBonus||0)+sk.val;break;
+    case 'veilBonus':G.veilBonus=(G.veilBonus||0)+sk.val;break;
+    case 'extraDie':G.extraDie=(G.extraDie||0)+sk.val;break;
+    case 'goldBonus':G.goldBonus=(G.goldBonus||0)+sk.val;break;
+  }
+  log(`✨ ${t(sk.nk)} Lv.${G.skills[id]}`,'skill');
+  updateHUD();renderSkills();saveGame();
+}
+
+// ===================================================
+// LORE POPUP
+// ===================================================
+function showLorePopup(title,text){document.getElementById('popup-title').textContent=title;document.getElementById('popup-text').textContent=text;showPopup('lore-popup');}
+function renderLoreTab(){
+  const el=document.getElementById('lore-tab-content');if(!el)return;
+  const ispt=LANG==='pt';
+  el.innerHTML=`
+  <div style="padding:4px 0 16px;">
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="font-size:48px;margin-bottom:8px;">🌑</div>
+      <div style="font-family:'Cinzel',serif;font-size:16px;color:var(--accent2);letter-spacing:3px;margin-bottom:6px;">${ispt?'O MUNDO DE LUNARETH':'THE WORLD OF LUNARETH'}</div>
+      <div style="font-size:11px;color:var(--muted);font-style:italic;">${ispt?'"O céu está escuro há séculos. Você é o motivo."':'"The sky has been dark for centuries. You are the reason why."'}</div>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:2px;">${ispt?'📜 A ORIGEM':'📜 THE ORIGIN'}</div>
+      <p style="font-size:13px;line-height:1.9;color:var(--text);font-style:italic;">${ispt?'Centenas de anos atrás, uma entidade celeste viva chamada <b style="color:var(--accent2)">Lua Negra</b> caiu do céu e corrompeu o mundo de Lunareth.<br><br>Após sua chegada, reinos entraram em colapso, oceanos engoleram cidades, igrejas se tornaram malditas, florestas ganharam vida e a humanidade mergulhou na loucura.<br><br>O céu ficou permanentemente escuro. Criaturas chamadas <b style="color:var(--red2)">Eclipsados</b> começaram a aparecer em todo lugar — seres horríveis criados a partir do sofrimento, corrupção e pesadelos.':'Hundreds of years ago, a living celestial entity called the <b style="color:var(--accent2)">Black Moon</b> fell from the sky and corrupted the world of Lunareth.<br><br>After its arrival, kingdoms collapsed, oceans swallowed cities, churches became cursed, forests came alive, and humanity descended into madness.<br><br>The sky became permanently dark. Creatures called the <b style="color:var(--red2)">Eclipsed</b> began appearing everywhere — horrifying beings born from suffering, corruption and nightmares.'}</p>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:2px;">${ispt?'👤 O PORTADOR DO VÉU':'👤 THE BEARER OF THE VEIL'}</div>
+      <p style="font-size:13px;line-height:1.9;color:var(--text);font-style:italic;">${ispt?'O jogador controla um sobrevivente misterioso conhecido como <b style="color:var(--accent2)">"O Portador do Véu"</b>, encontrado inconsciente perto de uma catedral em ruínas sem memória de seu passado.<br><br>Durante a jornada, o protagonista encontra uma garota chamada <b style="color:var(--accent2)">Elyra</b>, a última sobrevivente de uma antiga ordem que protegia a humanidade da Lua Negra.<br><br>Elyra acredita que a única forma de salvar o mundo é destruir os <b style="color:var(--red2)">Sete Corações do Eclipse</b> — seres corrompidos gigantescos que sustentam o poder da Lua Negra.':'The player controls a mysterious survivor known as <b style="color:var(--accent2)">"The Bearer of the Veil"</b>, found unconscious near a ruined cathedral with no memory of his past.<br><br>During the journey, the protagonist meets a girl named <b style="color:var(--accent2)">Elyra</b>, the last survivor of an ancient order that once protected humanity from the Black Moon.<br><br>Elyra believes the only way to save the world is to destroy the <b style="color:var(--red2)">Seven Hearts of the Eclipse</b> — gigantic corrupted beings sustaining the Black Moon\'s power.'}</p>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:2px;">${ispt?'🔍 A VERDADE OCULTA':'🔍 THE HIDDEN TRUTH'}</div>
+      <p style="font-size:13px;line-height:1.9;color:var(--text);font-style:italic;">${ispt?'Enquanto o jogador explora reinos em ruínas, florestas malditas e cidades mortas, <b style="color:var(--red2)">memórias ocultas revelam uma verdade aterrorizante:</b><br><br>O próprio protagonista ajudou a despertar a Lua Negra há muito tempo, enquanto buscava poder proibido para derrotar a morte.<br><br><b style="color:var(--red2)">O mundo está morrendo por causa dele.</b>':'As the player explores ruined kingdoms, cursed forests and dead cities, <b style="color:var(--red2)">hidden memories reveal a terrifying truth:</b><br><br>The protagonist himself helped awaken the Black Moon long ago while seeking forbidden power to defeat death.<br><br><b style="color:var(--red2)">The world is dying because of him.</b>'}</p>
+      <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        ${['humanity_extinct','black_moon_alive','monsters_were_human','reality_collapsing','elyra_secret'].map((k,i)=>{
+          const labels_en=['Humanity is almost extinct','The Black Moon is alive','The monsters were once human','Reality itself is collapsing','Elyra hides a terrible secret'];
+          const labels_pt=['A humanidade está quase extinta','A Lua Negra está viva','Os monstros já foram humanos','A própria realidade está colapsando','Elyra esconde um segredo terrível'];
+          return `<div style="background:var(--bg2);border:1px solid var(--red);border-radius:3px;padding:7px;font-size:11px;color:var(--red2);">⚠ ${ispt?labels_pt[i]:labels_en[i]}</div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:2px;">${ispt?'🗺️ ÁREAS DO MUNDO':'🗺️ WORLD AREAS'}</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${AREAS.map((a,i)=>{
+          const descs_en=['A valley blanketed in eternal fog. Crows circle endlessly, drawn by the stench of corruption.','Ancient trees that whisper forgotten names. Nothing that enters comes back unchanged.','Once the holiest place in Lunareth. Now a monument to everything faith failed to stop.','A kingdom frozen in the exact moment of its fall. Time itself stopped here.','Built from flesh and bone by something that has no right to exist.','The ocean did not die. It transformed. And it remembers.','A tower that reaches beyond the darkened sky, into the void where the Black Moon waits.','Cities built underground to escape the Eclipse. They became the Eclipse.'];
+          const descs_pt=['Um vale coberto por névoa eterna. Corvos circulam sem parar, atraídos pelo cheiro de corrupção.','Árvores antigas que sussurram nomes esquecidos. Nada que entra volta sem mudança.','Já foi o lugar mais sagrado de Lunareth. Agora é um monumento a tudo que a fé falhou em deter.','Um reino congelado no exato momento de sua queda. O tempo parou aqui.','Construído de carne e osso por algo que não tem direito de existir.','O oceano não morreu. Se transformou. E ele se lembra.','Uma torre que alcança além do céu escurecido, até o vazio onde a Lua Negra espera.','Cidades construídas no subsolo para escapar do Eclipse. Elas se tornaram o Eclipse.'];
+          const done=i<G.area;
+          return `<div style="display:flex;gap:8px;align-items:flex-start;padding:7px;background:var(--bg2);border:1px solid ${done?'var(--gold)':'var(--border)'};border-radius:3px;opacity:${done||i===G.area?1:0.5};">
+            <div style="font-size:20px;flex-shrink:0;">${a.emoji}</div>
+            <div>
+              <div style="font-family:'Cinzel',serif;font-size:11px;color:${done?'var(--gold)':'var(--accent2)'};">${done?'✓ ':''} ${a.name}</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px;font-style:italic;">${ispt?descs_pt[i]:descs_en[i]}</div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:2px;">${ispt?'💀 OS SETE CORAÇÕES + FINAL':'💀 THE SEVEN HEARTS + FINAL'}</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        ${BOSSES.slice(0,7).map((b,i)=>{
+          const defeated=G.area>i||(G.area===i&&G.floor>3);
+          return `<div style="display:flex;gap:8px;align-items:center;padding:6px;background:var(--bg2);border:1px solid ${defeated?'var(--red2)':'var(--border)'};border-radius:3px;opacity:${defeated?1:0.4};">
+            <div style="font-size:16px;">💀</div>
+            <div>
+              <div style="font-family:'Cinzel',serif;font-size:11px;color:${defeated?'var(--red2)':'var(--muted)'};"> ${defeated?'✓ ':''} ${b.name}</div>
+              <div style="font-size:10px;color:var(--muted);">${b.title}</div>
+              ${defeated?`<div style="font-size:10px;color:var(--accent2);font-style:italic;margin-top:2px;">${b.lore}</div>`:''}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--accent);border-radius:4px;padding:14px;margin-bottom:12px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--accent2);margin-bottom:10px;letter-spacing:2px;">${ispt?'🌅 O FINAL':'🌅 THE FINAL'}</div>
+      <p style="font-size:13px;line-height:1.9;color:var(--text);font-style:italic;">${ispt?'Após derrotar Nytharoth, o jogador descobre que <b style="color:var(--accent2)">Elyra é o fragmento final vivo</b> conectado à Lua Negra.<br><br>Se ela sobreviver, o Eclipse eventualmente retornará.<br><br>O protagonista mata Elyra para encerrar a maldição para sempre.<br><br>Pela primeira vez em séculos — <b style="color:var(--gold)">o sol nasce</b>.<br><br><em>Mas a humanidade já se foi.</em><br><br>Cena final: O protagonista caminha sozinho pelas ruínas silenciosas enquanto o primeiro amanhecer ilumina o mundo vazio.':'After defeating Nytharoth, the player discovers that <b style="color:var(--accent2)">Elyra is the final living fragment</b> connected to the Black Moon.<br><br>If she survives, the Eclipse will eventually return.<br><br>The protagonist kills Elyra to stop the curse forever.<br><br>For the first time in centuries — <b style="color:var(--gold)">the sun rises</b>.<br><br><em>But humanity is already gone.</em><br><br>Final scene: The protagonist walks alone through silent ruins while the first sunrise illuminates the empty world.'}</p>
+    </div>
+
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;">
+      <div style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-bottom:10px;letter-spacing:2px;">${ispt?'🧩 FRAGMENTOS DE MEMÓRIA DESCOBERTOS':'🧩 DISCOVERED MEMORY FRAGMENTS'}</div>
+      ${G.loreShown.length===0?`<div style="color:var(--muted);font-style:italic;font-size:12px;">${ispt?'Nenhum fragmento descoberto ainda...':'No fragments discovered yet...'}</div>`:
+        G.loreShown.map(i=>`<div style="font-size:12px;color:var(--accent2);font-style:italic;padding:6px;background:var(--bg2);border-left:2px solid var(--accent);margin-bottom:5px;">📜 ${LORE[i]}</div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function showLoreTitle(){showLorePopup('THE WORLD OF LUNARETH','Hundreds of years ago, the Black Moon fell from the sky and corrupted the world of Lunareth.\n\nKingdoms collapsed. Oceans swallowed cities. The sky became permanently dark.\n\nCreatures called "Eclipsed" began appearing — beings born from suffering and nightmares.\n\nYou are the Bearer of the Veil. You do not remember your past.\n\nBut the world is dying because of you.');}
+
+// ===================================================
+// INIT
+// ===================================================
+window.onload=()=>{checkSave();};
+</script>
+</body>
+</html>
