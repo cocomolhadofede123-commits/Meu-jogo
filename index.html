@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGC community | Skin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#0b0b0f;
+            --surface:#13131a;
+            --surface2:#1a1a24;
+            --border:#252535;
+            --border-hover:#3a3a50;
+            --text:#ececf0;
+            --text2:#8a8a9a;
+            --text3:#55556a;
+            --accent:#7c5cfc;
+            --accent2:#a78bfa;
+            --accent-glow:rgba(124,92,252,.15);
+            --danger:#ef4444;
+            --success:#22c55e;
+            --success-bg:rgba(34,197,94,.1);
+            --danger-bg:rgba(239,68,68,.1);
+            --radius:14px;
+            --radius-sm:10px;
+            --transition:180ms cubic-bezier(.23,1,.32,1);
+        }
+        html{scroll-behavior:smooth}
+        body{
+            font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+            background:var(--bg);
+            color:var(--text);
+            min-height:100vh;
+            line-height:1.5;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        /* ── HEADER ── */
+        .topbar{
+            position:sticky;top:0;z-index:50;
+            background:rgba(11,11,15,.85);
+            backdrop-filter:blur(20px);
+            border-bottom:1px solid var(--border);
+        }
+        .topbar-inner{
+            max-width:640px;margin:0 auto;
+            display:flex;align-items:center;justify-content:space-between;
+            padding:14px 20px;
+        }
+        .brand{
+            font-family:'Space Grotesk',sans-serif;
+            font-weight:700;font-size:1.1rem;
+            letter-spacing:-.02em;
+            background:linear-gradient(135deg,#7c5cfc,#c084fc);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        .topbar-badge{
+            font-size:.7rem;font-weight:600;
+            color:var(--text2);
+            background:var(--surface2);
+            padding:4px 12px;border-radius:20px;
+            letter-spacing:.03em;
+        }
+
+        /* ── MAIN ── */
+        .main{
+            max-width:640px;margin:0 auto;
+            padding:28px 20px 80px;
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty{
+            text-align:center;padding:72px 24px;
+            color:var(--text3);
+        }
+        .empty-icon{font-size:3rem;margin-bottom:12px;opacity:.6}
+        .empty h3{font-size:1rem;font-weight:600;color:var(--text2);margin-bottom:6px}
+        .empty p{font-size:.82rem;line-height:1.6}
+
+        /* ── POLL CARD ── */
+        .poll-card{
+            background:var(--surface);
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            overflow:hidden;
+            margin-bottom:24px;
+        }
+        .poll-head{padding:22px 24px 16px}
+        .poll-live{
+            display:inline-flex;align-items:center;gap:6px;
+            font-size:.68rem;font-weight:700;
+            text-transform:uppercase;letter-spacing:.08em;
+            color:var(--danger);
+            background:var(--danger-bg);
+            padding:4px 12px;border-radius:20px;
+            margin-bottom:12px;
+        }
+        .poll-live .dot{
+            width:6px;height:6px;border-radius:50%;
+            background:var(--danger);
+            animation:pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+        .poll-title{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:1.3rem;font-weight:700;
+            letter-spacing:-.02em;
+            line-height:1.3;
+            margin-bottom:8px;
+        }
+        .poll-meta{
+            display:flex;align-items:center;gap:14px;
+            font-size:.78rem;color:var(--text2);
+        }
+        .poll-meta strong{color:var(--text);font-weight:600}
+        .poll-timer{
+            display:flex;align-items:center;gap:5px;
+            font-variant-numeric:tabular-nums;
+            color:var(--accent2);font-weight:500;
+        }
+
+        /* ── OPTIONS ── */
+        .poll-options{padding:0 20px 24px}
+
+        .voted-banner{
+            text-align:center;
+            padding:12px;
+            margin-bottom:8px;
+            font-size:.82rem;font-weight:600;
+            color:var(--success);
+            background:var(--success-bg);
+            border-radius:var(--radius-sm);
+            border:1px solid rgba(34,197,94,.2);
+        }
+
+        .opt{
+            display:flex;align-items:center;gap:14px;
+            padding:12px 14px;
+            margin:7px 0;
+            background:var(--surface2);
+            border:1.5px solid var(--border);
+            border-radius:var(--radius-sm);
+            cursor:pointer;
+            transition:border-color var(--transition),background var(--transition),transform 100ms ease;
+            position:relative;
+            user-select:none;
+        }
+        .opt:hover{border-color:var(--border-hover);background:rgba(26,26,36,.9)}
+        .opt:active{transform:scale(.985)}
+        .opt.voted{border-color:var(--accent);background:var(--accent-glow)}
+        .opt.locked{cursor:default;pointer-events:none}
+
+        .opt-img{
+            width:52px;height:52px;border-radius:10px;
+            object-fit:cover;flex-shrink:0;
+            background:var(--surface);
+            border:1px solid var(--border);
+        }
+        .opt-img-placeholder{
+            width:52px;height:52px;border-radius:10px;
+            display:flex;align-items:center;justify-content:center;
+            flex-shrink:0;
+            background:var(--surface);
+            border:1px solid var(--border);
+            color:var(--text3);font-size:1.1rem;
+        }
+
+        .opt-body{flex:1;min-width:0}
+        .opt-name{
+            font-size:.88rem;font-weight:500;
+            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+        }
+        .opt-bar-bg{
+            height:4px;background:var(--border);
+            border-radius:2px;margin-top:7px;overflow:hidden;
+        }
+        .opt-bar-fill{
+            height:100%;
+            background:linear-gradient(90deg,var(--accent),#c084fc);
+            border-radius:2px;
+            transition:width .5s cubic-bezier(.23,1,.32,1);
+        }
+
+        .opt-count{
+            flex-shrink:0;text-align:right;
+            font-size:.76rem;color:var(--text2);
+            line-height:1.3;
+        }
+        .opt-count strong{
+            display:block;
+            font-size:.9rem;font-weight:700;
+            color:var(--text);
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-label{
+            font-size:.72rem;font-weight:600;
+            text-transform:uppercase;letter-spacing:.08em;
+            color:var(--text3);
+            margin:32px 0 14px;
+            padding-bottom:8px;
+            border-bottom:1px solid var(--border);
+        }
+
+        /* ── HISTORY ── */
+        .hist-card{
+            background:var(--surface);
+            border:1px solid var(--border);
+            border-radius:var(--radius-sm);
+            padding:18px 20px;
+            margin-bottom:10px;
+        }
+        .hist-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .hist-title{font-size:.92rem;font-weight:600;color:var(--text)}
+        .hist-closed{
+            font-size:.66rem;font-weight:700;
+            text-transform:uppercase;letter-spacing:.06em;
+            color:var(--text3);
+            background:var(--surface2);
+            padding:3px 10px;border-radius:20px;
+        }
+        .hist-winner{
+            display:inline-flex;align-items:center;gap:6px;
+            font-size:.78rem;font-weight:600;
+            color:var(--success);
+            margin-bottom:12px;
+        }
+        .hist-row{
+            display:flex;align-items:center;gap:10px;
+            margin:6px 0;
+        }
+        .hist-row img{
+            width:32px;height:32px;border-radius:6px;
+            object-fit:cover;flex-shrink:0;
+        }
+        .hist-row .h-name{font-size:.8rem;color:var(--text2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .hist-row .h-pct{font-size:.76rem;color:var(--text3);font-variant-numeric:tabular-nums}
+        .hist-bar-bg{
+            height:3px;background:var(--border);
+            border-radius:2px;margin:3px 0 8px;overflow:hidden;
+        }
+        .hist-bar-fill{
+            height:100%;
+            background:linear-gradient(90deg,var(--accent),#c084fc);
+            border-radius:2px;
+        }
+
+        /* ── FOOTER ── */
+        .footer{
+            text-align:center;padding:20px;
+            font-size:.72rem;color:var(--text3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <div class="topbar-inner">
+        <span class="brand">UGC community | Skin</span>
+        <span class="topbar-badge">Votações</span>
+    </div>
+</div>
+
+<div class="main" id="app">
+    <!-- renderizado via JS -->
+</div>
+
+<script>
+(function(){
+    "use strict";
+
+    const DURATION = 24 * 3600000; // 24h em ms
+    const POLL_KEY = "ugc_polls";
+    const VOTES_KEY = "ugc_votes";
+    const VOTED_KEY = "ugc_voted";
+    const HIST_KEY = "ugc_history";
+
+    /* ── helpers ── */
+    function load(k, fb){ try{ return JSON.parse(localStorage.getItem(k)) ?? fb; }catch{ return fb; } }
+    function save(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
+    function esc(s){ const d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+
+    function fmt(ms){
+        if(ms<=0) return "encerrada";
+        const h=Math.floor(ms/3600000), m=Math.floor(ms%3600000/60000), s=Math.floor(ms%60000/1000);
+        return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    }
+
+    function cleanup(){
+        const now=Date.now(), polls=load(POLL_KEY,[]);
+        let dirty=false;
+        polls.forEach(p=>{ if(p.active && now>=p.expiresAt){ p.active=false; dirty=true; } });
+        const keep=polls.filter(p=> now < p.expiresAt + DURATION);
+        if(keep.length!==polls.length) dirty=true;
+        if(dirty) save(POLL_KEY, keep);
+        return keep;
+    }
+
+    function getActive(polls){ return polls.find(p=>p.active); }
+    function getHistory(polls){
+        const hist=load(HIST_KEY,[]);
+        return hist.filter(h=>{
+            const p=polls.find(x=>x.id===h.id);
+            return !p || !p.active;
+        });
+    }
+
+    /* ── render ── */
+    function render(){
+        const polls=cleanup();
+        const active=getActive(polls);
+        const votes=load(VOTES_KEY,{});
+        const voted=load(VOTED_KEY,{});
+        const history=getHistory(polls);
+        const app=document.getElementById("app");
+
+        let html="";
+
+        /* ── enquete ativa ── */
+        if(active){
+            const pv=votes[active.id]||new Array(active.options.length).fill(0);
+            const total=pv.reduce((a,b)=>a+b,0);
+            const hasVoted=voted[active.id]!==undefined;
+            const remaining=Math.max(0,active.expiresAt-Date.now());
+
+            html+=`<div class="poll-card">`;
+            html+=`<div class="poll-head">`;
+            html+=`<div class="poll-live"><span class="dot"></span>Enquete ativa</div>`;
+            html+=`<h2 class="poll-title">${esc(active.title)}</h2>`;
+            html+=`<div class="poll-meta">`;
+            html+=`<span><strong>${total}</strong> voto${total!==1?"s":""}</span>`;
+            html+=`<span class="poll-timer">&#9201; ${fmt(remaining)}</span>`;
+            html+=`</div></div>`;
+
+            html+=`<div class="poll-options">`;
+
+            if(hasVoted) html+=`<div class="voted-banner">Voc&ecirc; j&aacute; votou nesta enquete</div>`;
+
+            active.options.forEach((opt,i)=>{
+                const count=pv[i]||0;
+                const pct=total>0?Math.round(count/total*100):0;
+                const cls="opt"+(hasVoted?" voted locked":"");
+                const isVoted=hasVoted && voted[active.id]===i;
+
+                html+=`<div class="${cls}" onclick="doVote('${active.id}',${i})">`;
+                html+=`<div style="position:relative;flex:1;min-width:0">`;
+
+                if(opt.image){
+                    html+=`<img class="opt-img" src="${opt.image}" alt="${esc(opt.name)}">`;
+                } else {
+                    html+=`<div class="opt-img-placeholder">?</div>`;
+                }
+
+                html+=`<div class="opt-body">`;
+                html+=`<div class="opt-name">${esc(opt.name)}</div>`;
+                if(hasVoted){
+                    html+=`<div class="opt-bar-bg"><div class="opt-bar-fill" style="width:${pct}%"></div></div>`;
+                }
+                html+=`</div>`;
+
+                if(hasVoted){
+                    html+=`<div class="opt-count"><strong>${count}</strong>${pct}%</div>`;
+                }
+
+                html+=`</div></div>`;
+            });
+
+            html+=`</div></div>`;
+        } else {
+            html+=`<div class="empty">`;
+            html+=`<div class="empty-icon">&#9744;</div>`;
+            html+=`<h3>Nenhuma enquete ativa</h3>`;
+            html+=`<p>Volte mais tarde para conferir novas vota&ccedil;&otilde;es da comunidade.</p>`;
+            html+=`</div>`;
+        }
+
+        /* ── hist&oacute;rico ── */
+        if(history.length>0){
+            html+=`<div class="section-label">Enquetes finalizadas</div>`;
+            history.slice(0,10).forEach(h=>{
+                const max=Math.max(...h.votes);
+                const total=h.votes.reduce((a,b)=>a+b,0);
+                const winnerIdx=h.votes.indexOf(max);
+                const winner=h.options[winnerIdx];
+
+                html+=`<div class="hist-card">`;
+                html+=`<div class="hist-head">`;
+                html+=`<span class="hist-title">${esc(h.title)}</span>`;
+                html+=`<span class="hist-closed">Encerrada</span>`;
+                html+=`</div>`;
+                html+=`<div class="hist-winner">&#9889; ${esc(winner.name)} &mdash; ${max} voto${max!==1?"s":""} (${total>0?Math.round(max/total*100):0}%)</div>`;
+
+                h.options.forEach((opt,i)=>{
+                    const pct=total>0?Math.round(h.votes[i]/total*100):0;
+                    html+=`<div class="hist-row">`;
+                    if(opt.image){
+                        html+=`<img src="${opt.image}" alt="">`;
+                    }
+                    html+=`<span class="h-name">${esc(opt.name)}</span>`;
+                    html+=`<span class="h-pct">${h.votes[i]} (${pct}%)</span>`;
+                    html+=`</div>`;
+                    html+=`<div class="hist-bar-bg"><div class="hist-bar-fill" style="width:${pct}%"></div></div>`;
+                });
+
+                html+=`</div>`;
+            });
+        }
+
+        app.innerHTML=html;
+    }
+
+    /* ── votar ── */
+    window.doVote=function(pollId,idx){
+        const voted=load(VOTED_KEY,{});
+        if(voted[pollId]!==undefined) return; // j&aacute; votou
+
+        const polls=load(POLL_KEY,[]);
+        const poll=polls.find(p=>p.id===pollId);
+        if(!poll||!poll.active) return;
+
+        const votes=load(VOTES_KEY,{});
+        if(!votes[pollId]) votes[pollId]=new Array(poll.options.length).fill(0);
+        votes[pollId][idx]++;
+        save(VOTES_KEY,votes);
+
+        voted[pollId]=idx;
+        save(VOTED_KEY,voted);
+
+        poll.votes=votes[pollId];
+        save(POLL_KEY,polls);
+
+        const hist=load(HIST_KEY,[]);
+        const hi=hist.find(h=>h.id===pollId);
+        if(hi){ hi.votes=votes[pollId]; save(HIST_KEY,hist); }
+
+        render();
+    };
+
+    /* ── auto-refresh ── */
+    render();
+    setInterval(render,1000);
+})();
+</script>
+
+</body>
+</html>
